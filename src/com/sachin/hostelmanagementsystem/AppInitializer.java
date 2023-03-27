@@ -1,12 +1,15 @@
 package com.sachin.hostelmanagementsystem;
 
+import com.sachin.hostelmanagementsystem.util.FactoryConfiguration;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.hibernate.Session;
 
 public class AppInitializer extends Application {
     public static void main(String[] args) {
+        Session session = FactoryConfiguration.getInstance().getSession();
     }
     @Override
     public void start(Stage primaryStage) throws Exception {

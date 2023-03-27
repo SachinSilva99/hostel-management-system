@@ -19,10 +19,8 @@ public class Reservation {
     private Date date;
     @Column
     private STATUS status;
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id",nullable = false)
+    @ManyToOne (fetch = FetchType.LAZY)
     private Student student;
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "room_type_id",nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Room room;
 }
