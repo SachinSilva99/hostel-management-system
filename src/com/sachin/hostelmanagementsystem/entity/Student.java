@@ -25,9 +25,19 @@ public class Student {
     private String contact_no;
     @Column(nullable = false)
     private Date dob;
-    @Column
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private GENDER gender;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
     private List<Reservation> reservations = new ArrayList<>();
+
+    public Student(String student_id, String name, String address, String contact_no, Date dob, GENDER gender) {
+        this.student_id = student_id;
+        this.name = name;
+        this.address = address;
+        this.contact_no = contact_no;
+        this.dob = dob;
+        this.gender = gender;
+    }
 }

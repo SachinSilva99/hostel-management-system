@@ -18,6 +18,7 @@ public class Room {
     @Id
     private String room_type_id;
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private ROOM_TYPE roomType;
     @Column(nullable = false)
     private double key_money;
@@ -26,4 +27,11 @@ public class Room {
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "room")
     private List<Reservation> reservations = new ArrayList<>();
+
+    public Room(String room_type_id, ROOM_TYPE roomType, double key_money, long qty) {
+        this.room_type_id = room_type_id;
+        this.roomType = roomType;
+        this.key_money = key_money;
+        this.qty = qty;
+    }
 }
