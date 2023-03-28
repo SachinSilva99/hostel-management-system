@@ -1,6 +1,7 @@
-package com.sachin.hostelmanagementsystem.repo.custom;
+package com.sachin.hostelmanagementsystem.repo.custom.impl;
 
 import com.sachin.hostelmanagementsystem.entity.Student;
+import com.sachin.hostelmanagementsystem.repo.custom.StudentRepo;
 import com.sachin.hostelmanagementsystem.repo.exception.ConstraintViolationException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -58,12 +59,14 @@ public class StudentRepoImpl implements StudentRepo {
     @Override
     public boolean existByPk(String pk, Session session) {
         Student student = session.get(Student.class, pk);
+        session.close();
         return student != null;
     }
 
     @Override
     public long count(Session session) {
         Query query = session.createQuery("select count(*) from Student");
+        session.close();
         return (Long) query.uniqueResult();
     }
 }
