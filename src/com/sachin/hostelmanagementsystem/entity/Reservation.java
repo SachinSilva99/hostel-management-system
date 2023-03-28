@@ -23,4 +23,10 @@ public class Reservation implements SuperEntity{
     private Student student;
     @ManyToOne(fetch = FetchType.LAZY)
     private Room room;
+
+    public Reservation(String res_id, Date date, STATUS status) {
+        this.res_id = res_id;
+        this.date = date;
+        this.status = status;
+    }
 }
