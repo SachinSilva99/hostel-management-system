@@ -18,7 +18,7 @@ public class Test {
     public static void main(String[] args) {
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
-        Student student = new Student(
+/*        Student student = new Student(
                 "S001", "sachin", "beruwala",
                 "077", new Date(1999, 7, 14),
                 GENDER.MALE);
@@ -32,8 +32,9 @@ public class Test {
         room.setReservations(reservations);
         session.save(student);
         session.save(room);
-        session.save(reservation);
-
+        session.save(reservation);*/
+        Reservation reservation = session.load(Reservation.class, "reservation");
+        session.delete(reservation);
         transaction.commit();
     }
 }

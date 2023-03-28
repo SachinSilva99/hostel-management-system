@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Student {
+public class Student implements SuperEntity{
     @Id
     private String student_id;
     @Column(nullable = false)

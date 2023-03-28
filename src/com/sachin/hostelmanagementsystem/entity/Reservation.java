@@ -12,7 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Reservation {
+public class Reservation implements SuperEntity{
     @Id
     private String res_id;
     @Column
