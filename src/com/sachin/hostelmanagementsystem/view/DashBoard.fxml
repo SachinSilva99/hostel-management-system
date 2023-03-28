@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="subAnchorPaneDashboard" prefHeight="604.0" prefWidth="887.0" style="-fx-background-color: #000714;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sachin.hostelmanagementsystem.controller.DashBoard">
+    <children>
+        <Label layoutX="63.0" layoutY="36.0" text="Available Rooms  :" textFill="WHITE">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="231.0" layoutY="38.0" text="10" textFill="#00ae65">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="63.0" layoutY="78.0" prefHeight="39.0" prefWidth="151.0" text="No of Students  " textFill="WHITE">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="63.0" layoutY="98.0" prefHeight="39.0" prefWidth="112.0" text="need to pay" textFill="WHITE">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="63.0" layoutY="117.0" prefHeight="39.0" prefWidth="112.0" text="key money" textFill="WHITE">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="220.0" layoutY="81.0" text=":" textFill="WHITE">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="231.0" layoutY="83.0" text="9" textFill="#cd3939">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>

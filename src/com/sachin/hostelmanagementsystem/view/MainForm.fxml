@@ -19,16 +19,43 @@
             <Image url="@../assets/images/hostel_logo.png" />
          </image>
       </ImageView>
-      <Button alignment="CENTER" layoutX="96.0" layoutY="182.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="253.0" style="-fx-background-color: #05309D; -fx-border-radius: 20 px;" text="Dashboard" textFill="WHITE">
+      <Button alignment="CENTER" layoutX="96.0" layoutY="182.0" mnemonicParsing="false" onAction="#test" prefHeight="54.0" prefWidth="253.0" stylesheets="@../assets/css/main.css" text="Dashboard" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
-      <AnchorPane layoutX="389.0" layoutY="182.0" prefHeight="540.0" prefWidth="854.0" />
+      <AnchorPane fx:id="subAnchorPane" layoutX="423.0" layoutY="148.0" prefHeight="604.0" prefWidth="887.0">
+         <children>
+            <Label layoutX="354.0" layoutY="37.0" text="Welcome !" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
       <Label layoutX="1141.0" layoutY="35.0" text="2023/01/01" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
+      <Label layoutX="514.0" layoutY="732.0" text="Copyright © 2023 The D24 Hostel. All rights reserved" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Button alignment="CENTER" layoutX="96.0" layoutY="270.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="253.0" stylesheets="@../assets/css/main.css" text="Rooms" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button alignment="CENTER" layoutX="96.0" layoutY="358.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="253.0" stylesheets="@../assets/css/main.css" text="Students" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button alignment="CENTER" layoutX="96.0" layoutY="446.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="253.0" stylesheets="@../assets/css/main.css" text="Place Reservations" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
