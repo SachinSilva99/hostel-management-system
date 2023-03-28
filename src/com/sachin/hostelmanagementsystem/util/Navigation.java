@@ -20,6 +20,10 @@ public class Navigation {
                 window.setTitle("DashBoard Form");
                 initUI("DashBoard.fxml");
                 break;
+            case RESERVATION:
+                window.setTitle("Reservation");
+                initUI("ReservationsForm.fxml");
+                break;
             default:
                 new Alert(Alert.AlertType.ERROR, "Not suitable UI found!").show();
         }

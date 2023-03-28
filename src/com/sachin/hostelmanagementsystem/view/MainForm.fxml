@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #000714;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sachin.hostelmanagementsystem.controller.MainForm">
+<AnchorPane prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #000714;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sachin.hostelmanagementsystem.controller.MainFormController">
    <children>
       <Label layoutX="633.0" layoutY="26.0" text="The D24 Hostel" textFill="WHITE">
          <font>
@@ -26,7 +26,7 @@
       </Button>
       <AnchorPane fx:id="subAnchorPane" layoutX="423.0" layoutY="148.0" prefHeight="604.0" prefWidth="887.0">
          <children>
-            <Label layoutX="354.0" layoutY="37.0" text="Welcome !" textFill="WHITE">
+            <Label layoutX="354.0" layoutY="37.0" text="Welcome ..." textFill="WHITE">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
@@ -42,7 +42,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Button alignment="CENTER" layoutX="96.0" layoutY="270.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="253.0" stylesheets="@../assets/css/main.css" text="Rooms" textFill="WHITE">
+      <Button fx:id="btnRooms" alignment="CENTER" layoutX="96.0" layoutY="270.0" mnemonicParsing="false" onAction="#btnRoomsOnAction" prefHeight="54.0" prefWidth="253.0" stylesheets="@../assets/css/main.css" text="Rooms" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
@@ -52,10 +52,40 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" layoutX="96.0" layoutY="446.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="253.0" stylesheets="@../assets/css/main.css" text="Place Reservations" textFill="WHITE">
+      <Button fx:id="btnPlaceReservations" alignment="CENTER" layoutX="96.0" layoutY="446.0" mnemonicParsing="false" onAction="#btnPlaceReservationsOnAction" prefHeight="54.0" prefWidth="253.0" stylesheets="@../assets/css/main.css" text="Place Reservations" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
+      <ImageView fitHeight="30.0" fitWidth="27.0" layoutX="56.0" layoutY="541.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/icons/logout.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="30.0" fitWidth="27.0" layoutX="56.0" layoutY="196.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/icons/dashboard.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="30.0" fitWidth="27.0" layoutX="56.0" layoutY="284.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/icons/rooms.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="44.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/icons/students.png" />
+         </image>
+      </ImageView>
+      <Button alignment="CENTER" layoutX="96.0" layoutY="527.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="253.0" stylesheets="@../assets/css/main.css" text="Log Out" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="30.0" fitWidth="27.0" layoutX="56.0" layoutY="460.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/icons/icons8-reservation-50.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

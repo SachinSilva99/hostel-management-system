@@ -8,7 +8,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public class MainForm {
+public class MainFormController {
     @FXML
     public AnchorPane subAnchorPane;
 
@@ -18,5 +18,14 @@ public class MainForm {
 
     public void test(ActionEvent actionEvent) throws IOException {
         Navigation.navigate(Route.DASHBOARD, subAnchorPane);
+    }
+
+    @FXML
+    public void btnRoomsOnAction(ActionEvent actionEvent) throws IOException {
+
+    }
+
+    public void btnPlaceReservationsOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Route.RESERVATION, subAnchorPane);
     }
 }

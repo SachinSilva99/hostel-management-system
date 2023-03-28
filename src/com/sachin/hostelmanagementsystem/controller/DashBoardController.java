@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
-public class DashBoard {
+public class DashBoardController {
     @FXML
     public Label lblDate;
     @FXML

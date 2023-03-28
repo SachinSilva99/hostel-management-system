@@ -23,6 +23,8 @@ public class AppInitializer extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("DashBoard Form");
         primaryStage.centerOnScreen();
+        primaryStage.setResizable(false);
+        primaryStage.setIconified(false);
         primaryStage.show();
     }
 }
