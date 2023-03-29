@@ -4,5 +4,5 @@ import com.sachin.hostelmanagementsystem.dto.ReservationDTO;
 import com.sachin.hostelmanagementsystem.dto.StudentDTO;
 
 public interface ReservationService {
-    boolean proceedReservation(StudentDTO studentDTO, ReservationDTO reservationDTO);
+    void proceedReservation(StudentDTO studentDTO, ReservationDTO reservationDTO);
 }

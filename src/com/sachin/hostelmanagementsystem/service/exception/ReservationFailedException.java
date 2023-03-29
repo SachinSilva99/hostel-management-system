@@ -1,22 +1,22 @@
 package com.sachin.hostelmanagementsystem.service.exception;
 
-public class ReservationFailed extends RuntimeException{
-    public ReservationFailed() {
+public class ReservationFailedException extends RuntimeException{
+    public ReservationFailedException() {
     }
 
-    public ReservationFailed(String message) {
+    public ReservationFailedException(String message) {
         super(message);
     }
 
-    public ReservationFailed(String message, Throwable cause) {
+    public ReservationFailedException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public ReservationFailed(Throwable cause) {
+    public ReservationFailedException(Throwable cause) {
         super(cause);
     }
 
-    public ReservationFailed(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public ReservationFailedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

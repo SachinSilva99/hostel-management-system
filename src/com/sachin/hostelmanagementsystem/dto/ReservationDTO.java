@@ -17,4 +17,6 @@ public class ReservationDTO {
     private Date date;
 
     private STATUS status;
+
+    private String roomTypeId;
 }
