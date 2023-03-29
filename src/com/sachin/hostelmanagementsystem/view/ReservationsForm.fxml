@@ -44,13 +44,12 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cmbRoomType" layoutX="165.0" layoutY="366.0" prefWidth="150.0" stylesheets="@../assets/css/main.css" />
+      <ComboBox fx:id="cmbRoomType" layoutX="165.0" layoutY="366.0" onAction="#cmbRoomTypeOnAction" prefWidth="150.0" stylesheets="@../assets/css/main.css" />
       <Label layoutX="420.0" layoutY="279.0" text="Available Rooms for selected Type" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cmbAvailableRooms" layoutX="420.0" layoutY="316.0" prefWidth="150.0" stylesheets="@../assets/css/main.css" />
       <Label layoutX="61.0" layoutY="447.0" text="Key Money paid ?" textFill="WHITE">
          <font>
             <Font size="16.0" />
@@ -77,5 +76,10 @@
             <Font size="16.0" />
          </font>
       </Button>
+      <Label fx:id="lblAvailableRoomsCount" layoutX="420.0" layoutY="304.0" textFill="#42e127">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

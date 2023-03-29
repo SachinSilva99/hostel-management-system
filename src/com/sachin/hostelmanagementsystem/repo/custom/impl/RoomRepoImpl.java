@@ -2,6 +2,7 @@ package com.sachin.hostelmanagementsystem.repo.custom.impl;
 
 import com.sachin.hostelmanagementsystem.entity.Room;
 import com.sachin.hostelmanagementsystem.entity.Student;
+import com.sachin.hostelmanagementsystem.entity.constants.ROOM_TYPE;
 import com.sachin.hostelmanagementsystem.repo.custom.RoomRepo;
 import com.sachin.hostelmanagementsystem.repo.exception.ConstraintViolationException;
 import org.hibernate.Session;
@@ -69,5 +70,12 @@ public class RoomRepoImpl implements RoomRepo {
         Query query = session.createQuery("select count(*) from Room");
         session.close();
         return (Long) query.uniqueResult();
+    }
+
+    @Override
+    public long getRoomCountForType(ROOM_TYPE roomType, Session session) {
+        Query query = session.createQuery("select r.qty from Room r where r.roomType = :roomType");
+        query.setParameter("roomType", roomType);
+        return query.uniqueResult() == null ? 0 : (Long) query.uniqueResult();
     }
 }

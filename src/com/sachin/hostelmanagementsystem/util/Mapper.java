@@ -60,7 +60,8 @@ public class Mapper {
         return new ReservationDTO(
                 reservation.getRes_id(),
                 reservation.getDate(),
-                reservation.getStatus()
+                reservation.getStatus(),
+                reservation.getRoom().getRoom_type_id()
         );
     }
 }

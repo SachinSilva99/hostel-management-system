@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity(name = "room")
+@Entity(name = "Room")
 public class Room implements SuperEntity{
     @Id
     private String room_type_id;
