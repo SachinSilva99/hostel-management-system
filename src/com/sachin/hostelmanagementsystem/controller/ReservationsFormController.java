@@ -1,6 +1,10 @@
 package com.sachin.hostelmanagementsystem.controller;
 
+import com.sachin.hostelmanagementsystem.dto.ReservationDTO;
 import com.sachin.hostelmanagementsystem.dto.RoomDTO;
+import com.sachin.hostelmanagementsystem.dto.StudentDTO;
+import com.sachin.hostelmanagementsystem.entity.constants.GENDER;
+import com.sachin.hostelmanagementsystem.entity.constants.STATUS;
 import com.sachin.hostelmanagementsystem.service.ServiceFactory;
 import com.sachin.hostelmanagementsystem.service.ServiceType;
 import com.sachin.hostelmanagementsystem.service.custom.ReservationService;
@@ -15,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ReservationsFormController {
@@ -100,7 +105,7 @@ public class ReservationsFormController {
         lblAvailableRoomsCount.setText(String.valueOf(availableRoomsCountForType));
 
         //loading ids of selected room type
-        if(availableRoomsCountForType!=0) {
+        if (availableRoomsCountForType != 0) {
             List<String> roomIds = roomService.getRoomIds(roomType);
             cmbRoomId.setItems(FXCollections.observableList(roomIds));
         }
@@ -117,5 +122,38 @@ public class ReservationsFormController {
         RoomDTO roomDTO = roomService.getRoom(roomId);
         double keyMoney = roomDTO.getKey_money();
         lblRoomPrice.setText(String.valueOf(keyMoney));
+    }
+
+    public void btnProceedOnAction(ActionEvent actionEvent) {
+        String studentName = txtName.getText();
+        String address = txtAddress.getText();
+        String contact = txtContact.getText();
+        String studentId = txtStudentId.getText();
+        String selectedItem = cmbGender.getSelectionModel().getSelectedItem();
+        String roomId = cmbRoomId.getSelectionModel().getSelectedItem();
+
+        StudentDTO studentDTO = new StudentDTO(
+                studentId, studentName, address, contact, new Date(), getGender(selectedItem)
+        );
+        ReservationDTO reservationDTO = new ReservationDTO(
+                "Res01",new Date(), STATUS.COMPLETED,roomId
+        );
+
+            reservationService.proceedReservation(studentDTO, reservationDTO);
+            System.out.println("Success");
+
+    }
+
+    private static GENDER getGender(String selectedItem) {
+        switch (selectedItem) {
+            case "MALE":
+                return GENDER.MALE;
+            case "FEAMLE":
+                return GENDER.FEMALE;
+            case "OTHER":
+                return GENDER.OTHER;
+            default:
+                return null;
+        }
     }
 }

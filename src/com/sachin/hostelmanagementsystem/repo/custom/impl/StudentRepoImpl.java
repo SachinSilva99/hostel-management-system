@@ -45,28 +45,24 @@ public class StudentRepoImpl implements StudentRepo {
         CriteriaQuery<Student> query = session.getCriteriaBuilder().createQuery(Student.class);
         query.from(Student.class);
         List<Student> students = session.createQuery(query).getResultList();
-        session.close();
         return students;
     }
 
     @Override
     public Optional<Student> findByPk(String pk, Session session) {
         Student student = session.get(Student.class, pk);
-        session.close();
         return student == null ? Optional.empty() : Optional.of(student);
     }
 
     @Override
     public boolean existByPk(String pk, Session session) {
         Student student = session.get(Student.class, pk);
-        session.close();
         return student != null;
     }
 
     @Override
     public long count(Session session) {
         Query query = session.createQuery("select count(*) from Student");
-        session.close();
         return (Long) query.uniqueResult();
     }
 }

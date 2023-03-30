@@ -53,21 +53,18 @@ public class ReservationRepoImpl implements ReservationRepo {
     @Override
     public Optional<Reservation> findByPk(String pk, Session session) {
         Reservation reservation = session.get(Reservation.class, pk);
-        session.close();
         return reservation == null ? Optional.empty() : Optional.of(reservation);
     }
 
     @Override
     public boolean existByPk(String pk, Session session) {
         Reservation reservation = session.get(Reservation.class, pk);
-        session.close();
         return reservation != null;
     }
 
     @Override
     public long count(Session session) {
         Query query = session.createQuery("select count(*) from Room");
-        session.close();
         return (Long) query.uniqueResult();
     }
 }

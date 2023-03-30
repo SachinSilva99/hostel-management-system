@@ -15,6 +15,8 @@ import com.sachin.hostelmanagementsystem.util.FactoryConfiguration;
 import com.sachin.hostelmanagementsystem.util.Mapper;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -56,7 +58,7 @@ public class RoomServiceImpl implements RoomService {
             throw new NotFoundException(roomDTO.getRoom_type_id() + " room doesn't exist");
         }
         try {
-            roomRepo.update(mapper.toRoom(roomDTO),session);
+            roomRepo.update(mapper.toRoom(roomDTO), session);
             transaction.commit();
             return roomDTO;
         } catch (Exception e) {
@@ -80,8 +82,8 @@ public class RoomServiceImpl implements RoomService {
     public long getAvailableRoomsCountForId(String roomId) throws NotFoundException {
         Session session = FactoryConfiguration.getInstance().getSession();
         Optional<Room> byPk = roomRepo.findByPk(roomId, session);
-        if(!byPk.isPresent())return 0;
-
+        if (!byPk.isPresent()) return 0;
+        session.close();
         return byPk.get().getQty();
     }
 
@@ -118,8 +120,9 @@ public class RoomServiceImpl implements RoomService {
     public RoomDTO getRoom(String roomId) throws NotFoundException {
         Session session = FactoryConfiguration.getInstance().getSession();
         Optional<Room> byPk = roomRepo.findByPk(roomId, session);
-        if(!byPk.isPresent()){
-            throw  new NotFoundException(roomId +" Room not found");
+        if (!byPk.isPresent()) {
+            session.close();
+            throw new NotFoundException(roomId + " Room not found");
         }
         return mapper.toRoomDto(byPk.get());
     }

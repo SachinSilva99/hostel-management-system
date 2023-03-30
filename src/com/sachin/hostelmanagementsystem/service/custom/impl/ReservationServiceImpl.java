@@ -55,7 +55,8 @@ public class ReservationServiceImpl implements ReservationService {
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
-            throw new ReservationFailedException("Reservation Failed");
+            e.getStackTrace();
+            System.out.println(e.getMessage());
         } finally {
             session.close();
         }

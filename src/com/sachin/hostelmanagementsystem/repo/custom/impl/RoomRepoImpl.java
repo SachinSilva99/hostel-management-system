@@ -47,28 +47,24 @@ public class RoomRepoImpl implements RoomRepo {
         CriteriaQuery<Room> query = session.getCriteriaBuilder().createQuery(Room.class);
         query.from(Room.class);
         List<Room> rooms = session.createQuery(query).getResultList();
-        session.close();
         return rooms;
     }
 
     @Override
     public Optional<Room> findByPk(String pk, Session session) {
         Room room = session.get(Room.class, pk);
-        session.close();
         return room == null ? Optional.empty() : Optional.of(room);
     }
 
     @Override
     public boolean existByPk(String pk, Session session) {
         Room room = session.get(Room.class, pk);
-        session.close();
         return room != null;
     }
 
     @Override
     public long count(Session session) {
         Query query = session.createQuery("select count(*) from Room");
-        session.close();
         return (Long) query.uniqueResult();
     }
 
