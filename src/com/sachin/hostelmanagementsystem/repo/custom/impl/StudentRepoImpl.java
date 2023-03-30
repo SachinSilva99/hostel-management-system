@@ -1,6 +1,7 @@
 package com.sachin.hostelmanagementsystem.repo.custom.impl;
 
 import com.sachin.hostelmanagementsystem.entity.Student;
+import com.sachin.hostelmanagementsystem.entity.constants.STATUS;
 import com.sachin.hostelmanagementsystem.repo.custom.StudentRepo;
 import com.sachin.hostelmanagementsystem.repo.exception.ConstraintViolationException;
 import org.hibernate.Session;
@@ -64,5 +65,14 @@ public class StudentRepoImpl implements StudentRepo {
     public long count(Session session) {
         Query query = session.createQuery("select count(*) from Student");
         return (Long) query.uniqueResult();
+    }
+
+    @Override
+    public List<Student> studentsWhoNoTPaidKeyMoney(Session session) {
+        String hql = "SELECT s FROM Student s LEFT JOIN s.reservations r WHERE r.status = :status OR r.res_id IS NULL";
+        List<Student> unpaidStudents = session.createQuery(hql)
+                .setParameter("status", STATUS.PENDING)
+                .getResultList();
+        return unpaidStudents;
     }
 }

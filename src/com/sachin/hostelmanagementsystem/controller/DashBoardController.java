@@ -1,9 +1,11 @@
 package com.sachin.hostelmanagementsystem.controller;
 
+import com.sachin.hostelmanagementsystem.dto.StudentDTO;
 import com.sachin.hostelmanagementsystem.service.ServiceFactory;
 import com.sachin.hostelmanagementsystem.service.ServiceType;
 import com.sachin.hostelmanagementsystem.service.SuperService;
 import com.sachin.hostelmanagementsystem.service.custom.RoomService;
+import com.sachin.hostelmanagementsystem.service.custom.StudentService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,8 +15,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
+import java.util.List;
+
 public class DashBoardController {
-   private final RoomService roomService = ServiceFactory.getInstance().getService(ServiceType.ROOM);
+    private final RoomService roomService = ServiceFactory.getInstance().getService(ServiceType.ROOM);
+    private final StudentService studentService = ServiceFactory.getInstance().getService(ServiceType.STUDENT);
 
     @FXML
     private AnchorPane subAnchorPaneDashboard;
@@ -72,6 +77,13 @@ public class DashBoardController {
 
     public void initialize() {
         loadRemainingRooms();
+        loadNoOfStudentsNotPaidKeyMoney();
+    }
+
+    private void loadNoOfStudentsNotPaidKeyMoney() {
+        List<StudentDTO> studentDTOS = studentService.studentsWhoNoTPaidKeyMoney();
+        studentDTOS.forEach(System.out::println);
+        lblNoOfStudents.setText(String.valueOf(studentDTOS.size()));
     }
 
     private void loadRemainingRooms() {

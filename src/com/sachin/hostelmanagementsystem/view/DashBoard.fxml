@@ -41,7 +41,7 @@
                 <Font size="20.0" />
             </font>
         </Label>
-        <Label fx:id="lblNoOfStudents" layoutX="714.0" layoutY="47.0" text="9" textFill="#cd3939">
+        <Label fx:id="lblNoOfStudents" layoutX="714.0" layoutY="47.0" textFill="#cd3939">
             <font>
                 <Font size="20.0" />
             </font>
