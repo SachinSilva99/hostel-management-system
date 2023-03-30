@@ -3,9 +3,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -74,22 +71,23 @@
       <VBox layoutX="154.0" layoutY="294.0" spacing="5.0" />
       <GridPane layoutX="155.0" layoutY="428.0" prefHeight="89.0" prefWidth="300.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="178.0" minWidth="10.0" prefWidth="157.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="178.0" minWidth="10.0" prefWidth="146.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="154.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label prefHeight="30.0" prefWidth="142.0" text="Reservation Id " textFill="WHITE">
+            <Label prefHeight="27.0" prefWidth="144.0" text="Reservation Id " textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label fx:id="lblReservationIdP" prefHeight="30.0" prefWidth="69.0" text="R001" textFill="WHITE" GridPane.columnIndex="1">
+            <Label fx:id="lblReservationIdP" prefHeight="30.0" prefWidth="69.0" textFill="WHITE" GridPane.columnIndex="1">
                <font>
                   <Font size="20.0" />
                </font>
@@ -99,7 +97,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label fx:id="lblRoomTypeP" layoutX="188.0" layoutY="6.0" prefHeight="30.0" prefWidth="69.0" text="AC" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label fx:id="lblRoomTypeP" layoutX="188.0" layoutY="6.0" prefHeight="30.0" prefWidth="69.0" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font size="20.0" />
                </font>
@@ -109,7 +107,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label fx:id="lblKeyMoneyP" text="2000" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Label fx:id="lblKeyMoneyP" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font size="20.0" />
                </font>
@@ -119,28 +117,30 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label fx:id="lblDateP" prefHeight="30.0" prefWidth="131.0" text="2023/02/23" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Label fx:id="lblDateP" prefHeight="30.0" prefWidth="131.0" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="10.0" layoutY="73.0" prefHeight="30.0" prefWidth="228.0" text="Student_id" textFill="WHITE" GridPane.rowIndex="4">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblStudent_idP" layoutX="10.0" layoutY="75.0" prefHeight="30.0" prefWidth="228.0" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
          </children>
       </GridPane>
-      <TextField fx:id="txtSearchP" layoutX="159.0" layoutY="282.0" onKeyReleased="#txtSearchPOnKeyReleased" prefHeight="25.0" prefWidth="185.0" promptText="Search" stylesheets="@../assets/css/main.css">
-         <font>
-            <Font size="16.0" />
-         </font></TextField>
-      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="315.0" layoutY="292.0" opacity="0.5">
-         <image>
-            <Image url="@../assets/icons/search.png" />
-         </image>
-      </ImageView>
       <GridPane layoutX="482.0" layoutY="428.0" prefHeight="89.0" prefWidth="300.0">
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="178.0" minWidth="10.0" prefWidth="157.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="178.0" minWidth="10.0" prefWidth="142.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="158.0" />
          </columnConstraints>
          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -187,6 +187,21 @@
                   <Font size="20.0" />
                </font>
             </Label>
+            <Label layoutX="10.0" layoutY="73.0" prefHeight="30.0" prefWidth="228.0" text="Date        " textFill="WHITE" GridPane.rowIndex="3">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label prefHeight="30.0" prefWidth="228.0" text="Student_id" textFill="WHITE" GridPane.rowIndex="4">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblStudentIdO" layoutX="10.0" layoutY="75.0" prefHeight="30.0" prefWidth="228.0" text="S001" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
          </children>
       </GridPane>
       <ComboBox fx:id="cmbOnGoingReservations" layoutX="482.0" layoutY="219.0" onAction="#cmbOnGoingReservationsOnAction" prefHeight="37.0" prefWidth="185.0" promptText="Select a Reservation" stylesheets="@../assets/css/main.css" />
@@ -195,16 +210,6 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="txtSearchO" layoutX="482.0" layoutY="279.0" prefHeight="25.0" prefWidth="185.0" promptText="Search" stylesheets="@../assets/css/main.css">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </TextField>
-      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="638.0" layoutY="289.0" opacity="0.5">
-         <image>
-            <Image url="@../assets/icons/search.png" />
-         </image>
-      </ImageView>
       <Button fx:id="btnComplete" layoutX="482.0" layoutY="344.0" mnemonicParsing="false" onAction="#btnCompleteOnAction" stylesheets="@../assets/css/main.css" text="Complete" textFill="WHITE">
          <font>
             <Font size="16.0" />

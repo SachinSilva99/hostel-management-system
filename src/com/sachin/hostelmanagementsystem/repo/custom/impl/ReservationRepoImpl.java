@@ -2,6 +2,7 @@ package com.sachin.hostelmanagementsystem.repo.custom.impl;
 
 import com.sachin.hostelmanagementsystem.entity.Reservation;
 import com.sachin.hostelmanagementsystem.entity.Room;
+import com.sachin.hostelmanagementsystem.entity.constants.STATUS;
 import com.sachin.hostelmanagementsystem.repo.custom.ReservationRepo;
 import com.sachin.hostelmanagementsystem.repo.exception.ConstraintViolationException;
 import org.hibernate.Session;
@@ -64,7 +65,15 @@ public class ReservationRepoImpl implements ReservationRepo {
 
     @Override
     public long count(Session session) {
-        Query query = session.createQuery("select count(*) from Room");
+        Query query = session.createQuery("select count(*) from Reservation ");
         return (Long) query.uniqueResult();
+    }
+
+    @Override
+    public List<String> getPendingReservations(Session session) {
+        String hql = "select R.res_id FROM Reservation R WHERE R.status = :status";
+        Query query = session.createQuery(hql);
+        query.setParameter("status", STATUS.PENDING);
+        return query.list();
     }
 }

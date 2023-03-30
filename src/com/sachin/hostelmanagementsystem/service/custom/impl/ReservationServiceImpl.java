@@ -5,6 +5,7 @@ import com.sachin.hostelmanagementsystem.dto.StudentDTO;
 import com.sachin.hostelmanagementsystem.entity.Reservation;
 import com.sachin.hostelmanagementsystem.entity.Room;
 import com.sachin.hostelmanagementsystem.entity.Student;
+import com.sachin.hostelmanagementsystem.entity.constants.STATUS;
 import com.sachin.hostelmanagementsystem.repo.RepoFactory;
 import com.sachin.hostelmanagementsystem.repo.RepoType;
 import com.sachin.hostelmanagementsystem.repo.custom.ReservationRepo;
@@ -59,6 +60,54 @@ public class ReservationServiceImpl implements ReservationService {
             System.out.println(e.getMessage());
             throw new ReservationFailedException();
         } finally {
+            session.close();
+        }
+
+    }
+
+    @Override
+    public ReservationDTO getReservationDTO(String res_id) {
+        Session session = FactoryConfiguration.getInstance().getSession();
+
+        Optional<Reservation> byPk = reservationRepo.findByPk(res_id, session);
+        if (!byPk.isPresent()) {
+            throw new NotFoundException(byPk + " is not found");
+        }
+        return mapper.toReservationDto(byPk.get());
+    }
+
+    @Override
+    public List<String> getPendingReservations() {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        List<String> pendingReservations = reservationRepo.getPendingReservations(session);
+        session.close();
+        return pendingReservations;
+
+    }
+
+    @Override
+    public ReservationDTO update(String selectedItem,STATUS status) throws NotFoundException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            Optional<Reservation> byPk = reservationRepo.findByPk(selectedItem, session);
+            if (!byPk.isPresent()) throw new NotFoundException(selectedItem + " not found to update");
+            Reservation reservation = byPk.get();
+            reservation.setStatus(status);
+            reservationRepo.update(reservation, session);
+            String roomTypeId = reservation.getRoom().getRoom_type_id();
+            Optional<Room> byPk1 = roomRepo.findByPk(roomTypeId, session);
+            if (!byPk.isPresent()) throw new NotFoundException(roomTypeId + " not found to update");
+            Room room = byPk1.get();
+            room.setQty(room.getQty() + 1);
+            roomRepo.update(room, session);
+            Reservation updateReservation = reservationRepo.update(reservation, session);
+            transaction.commit();
+            return mapper.toReservationDto(updateReservation);
+        }catch (Exception e){
+            transaction.rollback();
+            throw new ReservationFailedException("failed to update reservation");
+        }finally {
             session.close();
         }
 

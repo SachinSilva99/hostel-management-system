@@ -12,21 +12,14 @@ import org.hibernate.jpamodelgen.xml.jaxb.Persistence;
 import java.io.IOException;
 
 public class FactoryConfiguration {
-    private static final FactoryConfiguration factoryConfiguration;
-
-    static {
-        try {
-            factoryConfiguration = new FactoryConfiguration();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
+    private static final FactoryConfiguration factoryConfiguration = new FactoryConfiguration();
     private final SessionFactory sessionFactory;
 
-    private FactoryConfiguration() throws IOException {
+    private FactoryConfiguration()  {
 
         Configuration configure = new Configuration();
+        configure.setProperty("hibernate.properties", "hibernate.properties");
+
         configure
                 .addAnnotatedClass(Reservation.class)
                 .addAnnotatedClass(Room.class)

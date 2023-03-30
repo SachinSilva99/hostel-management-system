@@ -1,5 +1,6 @@
 package com.sachin.hostelmanagementsystem.service.custom.impl;
 
+import com.sachin.hostelmanagementsystem.dto.ReservationDTO;
 import com.sachin.hostelmanagementsystem.dto.StudentDTO;
 import com.sachin.hostelmanagementsystem.entity.Student;
 import com.sachin.hostelmanagementsystem.repo.RepoFactory;
@@ -10,7 +11,9 @@ import com.sachin.hostelmanagementsystem.util.FactoryConfiguration;
 import com.sachin.hostelmanagementsystem.util.Mapper;
 import org.hibernate.Session;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class StudentServiceImpl implements StudentService {
@@ -35,6 +38,16 @@ public class StudentServiceImpl implements StudentService {
         List<StudentDTO> studentDTOS = students.stream().map(student -> mapper.toStudentDto(student)).collect(Collectors.toList());
         session.close();
         return studentDTOS;
+    }
+
+    @Override
+    public List<String> getReservationsForStudent(String studentId) {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Optional<Student> byPk = studentRepo.findByPk(studentId, session);
+        if(!byPk.isPresent())return new ArrayList<>();
+        List<String> collect = byPk.get().getReservations().stream().map(r -> r.getRes_id()).collect(Collectors.toList());
+        session.close();
+        return collect;
     }
 
 }

@@ -33,8 +33,8 @@ public class Test {
         session.save(student);
         session.save(room);
         session.save(reservation);*/
-        Reservation reservation = session.load(Reservation.class, "reservation");
-        session.delete(reservation);
+        Student s001 = session.load(Student.class, "S001");
+        session.delete(s001);
         transaction.commit();
     }
 }
