@@ -18,6 +18,7 @@ public class Reservation implements SuperEntity{
     @Column
     private Date date;
     @Column
+    @Enumerated(EnumType.STRING)
     private STATUS status;
     @ManyToOne (fetch = FetchType.LAZY)
     private Student student;

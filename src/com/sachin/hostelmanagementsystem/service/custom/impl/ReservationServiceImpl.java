@@ -29,7 +29,7 @@ public class ReservationServiceImpl implements ReservationService {
     private final Mapper mapper = new Mapper();
 
     @Override
-    public void proceedReservation(StudentDTO studentDTO, ReservationDTO reservationDTO) {
+    public void proceedReservation(StudentDTO studentDTO, ReservationDTO reservationDTO) throws ReservationFailedException {
         Session session = FactoryConfiguration.getInstance().getSession();
 
         Student student = mapper.toStudent(studentDTO);
@@ -57,6 +57,7 @@ public class ReservationServiceImpl implements ReservationService {
             transaction.rollback();
             e.getStackTrace();
             System.out.println(e.getMessage());
+            throw new ReservationFailedException();
         } finally {
             session.close();
         }

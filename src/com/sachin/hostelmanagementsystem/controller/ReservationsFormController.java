@@ -136,11 +136,11 @@ public class ReservationsFormController {
                 studentId, studentName, address, contact, new Date(), getGender(selectedItem)
         );
         ReservationDTO reservationDTO = new ReservationDTO(
-                "Res01",new Date(), STATUS.COMPLETED,roomId
+                "Res02", new Date(), STATUS.COMPLETED, roomId
         );
 
-            reservationService.proceedReservation(studentDTO, reservationDTO);
-            System.out.println("Success");
+        reservationService.proceedReservation(studentDTO, reservationDTO);
+        System.out.println("Success");
 
     }
 
@@ -148,7 +148,7 @@ public class ReservationsFormController {
         switch (selectedItem) {
             case "MALE":
                 return GENDER.MALE;
-            case "FEAMLE":
+            case "FEMALE":
                 return GENDER.FEMALE;
             case "OTHER":
                 return GENDER.OTHER;
