@@ -69,6 +69,12 @@ public class RoomRepoImpl implements RoomRepo {
     }
 
     @Override
+    public long getAvailableRoomsCount(Session session) {
+        Query query = session.createQuery("select sum(r.qty) from Room r");
+        return query.uniqueResult() == null ? 0 : (Long) query.uniqueResult();
+    }
+
+    @Override
     public long getRoomCountForType(ROOM_TYPE roomType, Session session) {
         Query query = session.createQuery("select sum(r.qty) from Room r where r.roomType = :roomType");
         query.setParameter("roomType", roomType);

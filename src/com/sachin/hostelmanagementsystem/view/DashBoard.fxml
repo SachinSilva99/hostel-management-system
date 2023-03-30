@@ -21,7 +21,7 @@
                 <Font size="20.0" />
             </font>
         </Label>
-        <Label fx:id="lblAvailableRooms" layoutX="339.0" layoutY="55.0" text="10" textFill="#00ae65">
+        <Label fx:id="lblAvailableRooms" layoutX="339.0" layoutY="55.0" textFill="#00ae65">
             <font>
                 <Font size="20.0" />
             </font>

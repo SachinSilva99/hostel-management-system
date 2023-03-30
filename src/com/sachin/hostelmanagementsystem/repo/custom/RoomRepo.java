@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import java.util.List;
 
 public interface RoomRepo extends CrudRepo<Room, String> {
+    long getAvailableRoomsCount(Session session);
     long getRoomCountForType(ROOM_TYPE roomType, Session session);
 
     List<String> getRoomIds(ROOM_TYPE roomType, Session session);

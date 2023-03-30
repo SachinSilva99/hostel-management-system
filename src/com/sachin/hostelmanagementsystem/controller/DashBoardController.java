@@ -1,5 +1,9 @@
 package com.sachin.hostelmanagementsystem.controller;
 
+import com.sachin.hostelmanagementsystem.service.ServiceFactory;
+import com.sachin.hostelmanagementsystem.service.ServiceType;
+import com.sachin.hostelmanagementsystem.service.SuperService;
+import com.sachin.hostelmanagementsystem.service.custom.RoomService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,8 +13,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
-public class DashBoardController { @FXML
-private AnchorPane subAnchorPaneDashboard;
+public class DashBoardController {
+   private final RoomService roomService = ServiceFactory.getInstance().getService(ServiceType.ROOM);
+
+    @FXML
+    private AnchorPane subAnchorPaneDashboard;
 
     @FXML
     private Label lblAvailableRooms;
@@ -63,6 +70,15 @@ private AnchorPane subAnchorPaneDashboard;
     @FXML
     private Button btnComplete;
 
+    public void initialize() {
+        loadRemainingRooms();
+    }
+
+    private void loadRemainingRooms() {
+        String allAvailableRoomsCount = String.valueOf(roomService.getAllAvailableRoomsCount());
+        lblAvailableRooms.setText(allAvailableRoomsCount);
+    }
+
     @FXML
     void btnAcceptOnAction(ActionEvent event) {
 
@@ -92,5 +108,6 @@ private AnchorPane subAnchorPaneDashboard;
     void txtSearchPOnKeyReleased(KeyEvent event) {
 
     }
+
 
 }

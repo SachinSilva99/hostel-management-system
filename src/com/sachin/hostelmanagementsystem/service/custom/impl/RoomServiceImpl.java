@@ -26,6 +26,12 @@ public class RoomServiceImpl implements RoomService {
     private final Mapper mapper = new Mapper();
 
     @Override
+    public long getAllAvailableRoomsCount() {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        return roomRepo.getAvailableRoomsCount(session);
+    }
+
+    @Override
     public List<RoomDTO> findAll() {
         Session session = FactoryConfiguration.getInstance().getSession();
         return roomRepo.findAll(session).stream().map(mapper::toRoomDto).collect(Collectors.toList());

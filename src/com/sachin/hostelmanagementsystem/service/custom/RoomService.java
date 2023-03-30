@@ -12,6 +12,7 @@ import org.hibernate.Session;
 import java.util.List;
 
 public interface RoomService extends SuperService {
+    long getAllAvailableRoomsCount();
     List<RoomDTO> findAll();
     RoomDTO save(RoomDTO roomDTO) throws AlreadyExists;
     RoomDTO update(RoomDTO roomDTO) throws NotFoundException, UpdateFailedException;
