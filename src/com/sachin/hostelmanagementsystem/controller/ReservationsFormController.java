@@ -1,5 +1,6 @@
 package com.sachin.hostelmanagementsystem.controller;
 
+import com.sachin.hostelmanagementsystem.entity.Room;
 import com.sachin.hostelmanagementsystem.service.ServiceFactory;
 import com.sachin.hostelmanagementsystem.service.ServiceType;
 import com.sachin.hostelmanagementsystem.service.custom.ReservationService;
@@ -109,5 +110,8 @@ public class ReservationsFormController {
         String roomId = cmbRoomId.getSelectionModel().getSelectedItem();
         long availableRoomsCountForId = roomService.getAvailableRoomsCountForId(roomId);
         lblAvailableRoomsCount.setText(String.valueOf(availableRoomsCountForId));
+
+        //Loading key money to selected room id
+        roomService.getRoom(roomId)
     }
 }
