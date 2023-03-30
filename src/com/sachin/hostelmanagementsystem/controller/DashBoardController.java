@@ -6,8 +6,11 @@ import com.sachin.hostelmanagementsystem.service.ServiceType;
 import com.sachin.hostelmanagementsystem.service.SuperService;
 import com.sachin.hostelmanagementsystem.service.custom.RoomService;
 import com.sachin.hostelmanagementsystem.service.custom.StudentService;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -16,6 +19,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DashBoardController {
     private final RoomService roomService = ServiceFactory.getInstance().getService(ServiceType.ROOM);
@@ -31,7 +35,7 @@ public class DashBoardController {
     private Label lblNoOfStudents;
 
     @FXML
-    private ComboBox<?> cmbPendingReservations;
+    private ComboBox<String> cmbPendingReservations;
 
     @FXML
     private Button btnAccept;
@@ -78,18 +82,12 @@ public class DashBoardController {
     public void initialize() {
         loadRemainingRooms();
         loadNoOfStudentsNotPaidKeyMoney();
+        loadNotPaidStudentIds();
     }
 
-    private void loadNoOfStudentsNotPaidKeyMoney() {
-        List<StudentDTO> studentDTOS = studentService.studentsWhoNoTPaidKeyMoney();
-        studentDTOS.forEach(System.out::println);
-        lblNoOfStudents.setText(String.valueOf(studentDTOS.size()));
-    }
 
-    private void loadRemainingRooms() {
-        String allAvailableRoomsCount = String.valueOf(roomService.getAllAvailableRoomsCount());
-        lblAvailableRooms.setText(allAvailableRoomsCount);
-    }
+
+
 
     @FXML
     void btnAcceptOnAction(ActionEvent event) {
@@ -114,11 +112,28 @@ public class DashBoardController {
     @FXML
     void cmbPendingReservationsOnAction(ActionEvent event) {
 
+
     }
+
+
 
     @FXML
     void txtSearchPOnKeyReleased(KeyEvent event) {
 
+    }
+    private void loadNotPaidStudentIds() {
+        List<String> collect = studentService.studentsWhoNoTPaidKeyMoney().stream().map(studentDTO -> studentDTO.getStudent_id()).collect(Collectors.toList());
+        ObservableList<String> notPaidStudents = FXCollections.observableList(collect);
+        cmbPendingReservations.setItems(notPaidStudents);
+    }
+    private void loadRemainingRooms() {
+        String allAvailableRoomsCount = String.valueOf(roomService.getAllAvailableRoomsCount());
+        lblAvailableRooms.setText(allAvailableRoomsCount);
+    }
+    private void loadNoOfStudentsNotPaidKeyMoney() {
+        List<StudentDTO> studentDTOS = studentService.studentsWhoNoTPaidKeyMoney();
+        studentDTOS.forEach(System.out::println);
+        lblNoOfStudents.setText(String.valueOf(studentDTOS.size()));
     }
 
 
