@@ -1,7 +1,6 @@
 package com.sachin.hostelmanagementsystem.repo.custom.impl;
 
 import com.sachin.hostelmanagementsystem.entity.Room;
-import com.sachin.hostelmanagementsystem.entity.Student;
 import com.sachin.hostelmanagementsystem.entity.constants.ROOM_TYPE;
 import com.sachin.hostelmanagementsystem.repo.custom.RoomRepo;
 import com.sachin.hostelmanagementsystem.repo.exception.ConstraintViolationException;
@@ -9,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import javax.persistence.criteria.CriteriaQuery;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,8 +74,17 @@ public class RoomRepoImpl implements RoomRepo {
 
     @Override
     public long getRoomCountForType(ROOM_TYPE roomType, Session session) {
-        Query query = session.createQuery("select r.qty from Room r where r.roomType = :roomType");
+        Query query = session.createQuery("select sum(r.qty) from Room r where r.roomType = :roomType");
         query.setParameter("roomType", roomType);
+
         return query.uniqueResult() == null ? 0 : (Long) query.uniqueResult();
+    }
+
+    @Override
+    public List<String> getRoomIds(ROOM_TYPE roomType, Session session) {
+        Query query = session.createQuery("select r.room_type_id from Room r where r.roomType = :roomType");
+        query.setParameter("roomType", roomType);
+        List<String> ids =  query.list();
+        return ids == null ? new ArrayList<String>() : ids;
     }
 }

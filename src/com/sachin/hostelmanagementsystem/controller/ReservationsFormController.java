@@ -14,8 +14,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ReservationsFormController {
+    @FXML
+    public ComboBox<String> cmbRoomId;
     @FXML
     private Label lblAvailableRoomsCount;
     @FXML
@@ -90,8 +93,21 @@ public class ReservationsFormController {
     }
 
     private void loadAvailableRooms() {
+        //loading how many numbers of rooms available for selected room type
         String roomType = cmbRoomType.getSelectionModel().getSelectedItem();
         long availableRoomsCountForType = roomService.getAvailableRoomsCountForType(roomType);
         lblAvailableRoomsCount.setText(String.valueOf(availableRoomsCountForType));
+
+        //loading ids of selected room type
+        List<String> roomIds = roomService.getRoomIds(roomType);
+        cmbRoomId.setItems(FXCollections.observableList(roomIds));
+    }
+
+    @FXML
+    public void cmbRoomIdOnAction(ActionEvent actionEvent) {
+        //loading how many numbers of rooms available for selected room id
+        String roomId = cmbRoomId.getSelectionModel().getSelectedItem();
+        long availableRoomsCountForId = roomService.getAvailableRoomsCountForId(roomId);
+        lblAvailableRoomsCount.setText(String.valueOf(availableRoomsCountForId));
     }
 }

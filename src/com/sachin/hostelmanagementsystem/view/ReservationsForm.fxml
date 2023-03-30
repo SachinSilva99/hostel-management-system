@@ -56,17 +56,17 @@
          </font>
       </Label>
       <ComboBox fx:id="cmbKeyMoney" layoutX="225.0" layoutY="447.0" prefHeight="25.0" prefWidth="88.0" stylesheets="@../assets/css/main.css" />
-      <Label layoutX="419.0" layoutY="380.0" prefHeight="25.0" prefWidth="109.0" text="Room price :" textFill="WHITE">
+      <Label layoutX="419.0" layoutY="423.0" prefHeight="25.0" prefWidth="109.0" text="Room price :" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="516.0" layoutY="380.0" prefHeight="25.0" prefWidth="25.0" text="Rs." textFill="WHITE">
+      <Label layoutX="516.0" layoutY="423.0" prefHeight="25.0" prefWidth="25.0" text="Rs." textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="lblRoomPrice" layoutX="540.0" layoutY="380.0" text="10000" textFill="#6a91f6">
+      <Label fx:id="lblRoomPrice" layoutX="540.0" layoutY="423.0" text="10000" textFill="#6a91f6">
          <font>
             <Font size="16.0" />
          </font>
@@ -81,5 +81,11 @@
             <Font size="24.0" />
          </font>
       </Label>
+      <Label layoutX="421.0" layoutY="366.0" prefHeight="25.0" prefWidth="88.0" text="Room ID" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cmbRoomId" layoutX="525.0" layoutY="366.0" onAction="#cmbRoomIdOnAction" prefWidth="150.0" stylesheets="@../assets/css/main.css" />
    </children>
 </AnchorPane>

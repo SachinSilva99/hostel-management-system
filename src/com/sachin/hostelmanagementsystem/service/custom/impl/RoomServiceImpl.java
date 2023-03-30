@@ -13,7 +13,6 @@ import com.sachin.hostelmanagementsystem.service.exception.UpdateFailedException
 import com.sachin.hostelmanagementsystem.util.FactoryConfiguration;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -67,6 +66,20 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public long getAvailableRoomsCountForType(String roomType) throws NotFoundException {
         Session session = FactoryConfiguration.getInstance().getSession();
+        ROOM_TYPE roomTypeForRepo = getRoomType(roomType);
+        long roomCountForType = roomRepo.getRoomCountForType(roomTypeForRepo, session);
+        session.close();
+        return roomCountForType;
+    }
+
+    @Override
+    public long getAvailableRoomsCountForId(String roomId) throws NotFoundException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Optional<Room> byPk = roomRepo.findByPk(roomId, session);
+        return byPk.map(Room::getQty).orElse(0L);
+    }
+
+    private static ROOM_TYPE getRoomType(String roomType) {
         ROOM_TYPE roomTypeForRepo = null;
         switch (roomType) {
             case "AC":
@@ -80,12 +93,18 @@ public class RoomServiceImpl implements RoomService {
                 break;
             case "NON_AC_FOOD":
                 roomTypeForRepo = ROOM_TYPE.NON_AC_FOOD;
+                break;
             default:
                 roomTypeForRepo = null;
         }
-        return roomRepo.getRoomCountForType(roomTypeForRepo, session);
-
+        return roomTypeForRepo;
     }
 
-
+    @Override
+    public List<String> getRoomIds(String roomType) {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        List<String> roomIds = roomRepo.getRoomIds(getRoomType(roomType), session);
+        session.close();
+        return roomIds;
+    }
 }

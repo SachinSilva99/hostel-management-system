@@ -6,6 +6,7 @@ import com.sachin.hostelmanagementsystem.service.SuperService;
 import com.sachin.hostelmanagementsystem.service.exception.AlreadyExists;
 import com.sachin.hostelmanagementsystem.service.exception.NotFoundException;
 import com.sachin.hostelmanagementsystem.service.exception.UpdateFailedException;
+import org.hibernate.Session;
 
 import java.util.List;
 
@@ -14,5 +15,7 @@ public interface RoomService extends SuperService {
     Room save(Room room) throws AlreadyExists;
     Room update(Room room) throws NotFoundException, UpdateFailedException;
     long getAvailableRoomsCountForType(String roomType)throws NotFoundException;
+    long getAvailableRoomsCountForId(String roomId)throws NotFoundException;
+    List<String> getRoomIds(String roomType);
 
 }
