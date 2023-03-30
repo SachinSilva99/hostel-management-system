@@ -35,12 +35,12 @@
     -fx-background-radius: 20px;
     -fx-text-fill: white;
 }
-#btnComplete {
+#btnAccept {
     -fx-background-color: #074B2B;
     -fx-background-radius: 20px;
     -fx-text-fill: white;
 }
-#btnComplete:hover {
+#btnAccept:hover {
     -fx-background-color: #13c008;
     -fx-text-fill: white;
 }
@@ -50,7 +50,7 @@
     -fx-text-fill: white;
 }
 
-#btnComplete:pressed {
+#btnAccept:pressed {
     -fx-background-color: #505050;
 }
 

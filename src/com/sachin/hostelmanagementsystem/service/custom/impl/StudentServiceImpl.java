@@ -18,4 +18,5 @@ public class StudentServiceImpl implements StudentService {
         StudentRepo repo = RepoFactory.getInstance().getRepo(RepoType.STUDENT);
         return repo.findAll(session);
     }
+
 }

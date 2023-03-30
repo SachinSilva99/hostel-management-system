@@ -26,27 +26,22 @@
                 <Font size="20.0" />
             </font>
         </Label>
-        <Label layoutX="548.0" layoutY="29.0" prefHeight="39.0" prefWidth="151.0" text="No of Students  " textFill="WHITE">
+        <Label layoutX="480.0" layoutY="29.0" prefHeight="39.0" prefWidth="151.0" text="No of Students  " textFill="WHITE">
             <font>
                 <Font size="20.0" />
             </font>
         </Label>
-        <Label layoutX="548.0" layoutY="49.0" prefHeight="39.0" prefWidth="112.0" text="need to pay" textFill="WHITE">
+        <Label layoutX="480.0" layoutY="49.0" prefHeight="39.0" prefWidth="112.0" text="need to pay" textFill="WHITE">
             <font>
                 <Font size="20.0" />
             </font>
         </Label>
-        <Label layoutX="548.0" layoutY="68.0" prefHeight="39.0" prefWidth="112.0" text="key money" textFill="WHITE">
+        <Label layoutX="480.0" layoutY="68.0" prefHeight="39.0" prefWidth="112.0" text="key money" textFill="WHITE">
             <font>
                 <Font size="20.0" />
             </font>
         </Label>
-        <Label layoutX="601.0" layoutY="32.0" text=":" textFill="WHITE">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </Label>
-        <Label fx:id="lblNoOfStudents" layoutX="782.0" layoutY="47.0" text="9" textFill="#cd3939">
+        <Label fx:id="lblNoOfStudents" layoutX="714.0" layoutY="47.0" text="9" textFill="#cd3939">
             <font>
                 <Font size="20.0" />
             </font>
@@ -57,14 +52,14 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="730.0" layoutY="47.0" text=":" textFill="WHITE">
+      <Label layoutX="662.0" layoutY="47.0" text=":" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
       <HBox layoutX="155.0" layoutY="348.0" spacing="10.0">
          <children>
-            <Button fx:id="btnComplete" mnemonicParsing="false" onAction="#btnCompleteOnAction" stylesheets="@../assets/css/main.css" text="Complete" textFill="WHITE">
+            <Button fx:id="btnAccept" mnemonicParsing="false" onAction="#btnAcceptOnAction" stylesheets="@../assets/css/main.css" text="Accept" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -94,7 +89,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label fx:id="lblReservationId" prefHeight="30.0" prefWidth="69.0" text="R001" textFill="WHITE" GridPane.columnIndex="1">
+            <Label fx:id="lblReservationIdP" prefHeight="30.0" prefWidth="69.0" text="R001" textFill="WHITE" GridPane.columnIndex="1">
                <font>
                   <Font size="20.0" />
                </font>
@@ -104,7 +99,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label fx:id="lblRoomType" layoutX="188.0" layoutY="6.0" prefHeight="30.0" prefWidth="69.0" text="AC" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label fx:id="lblRoomTypeP" layoutX="188.0" layoutY="6.0" prefHeight="30.0" prefWidth="69.0" text="AC" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font size="20.0" />
                </font>
@@ -114,7 +109,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label fx:id="lblKeyMoney" text="2000" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Label fx:id="lblKeyMoneyP" text="2000" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font size="20.0" />
                </font>
@@ -124,14 +119,14 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label fx:id="lblDate" prefHeight="30.0" prefWidth="131.0" text="2023/02/23" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Label fx:id="lblDateP" prefHeight="30.0" prefWidth="131.0" text="2023/02/23" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
          </children>
       </GridPane>
-      <TextField fx:id="txtSearch" layoutX="159.0" layoutY="282.0" prefHeight="25.0" prefWidth="185.0" promptText="Search" stylesheets="@../assets/css/main.css">
+      <TextField fx:id="txtSearchP" layoutX="159.0" layoutY="282.0" onKeyReleased="#txtSearchPOnKeyReleased" prefHeight="25.0" prefWidth="185.0" promptText="Search" stylesheets="@../assets/css/main.css">
          <font>
             <Font size="16.0" />
          </font></TextField>
@@ -140,5 +135,80 @@
             <Image url="@../assets/icons/search.png" />
          </image>
       </ImageView>
+      <GridPane layoutX="482.0" layoutY="428.0" prefHeight="89.0" prefWidth="300.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="178.0" minWidth="10.0" prefWidth="157.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label prefHeight="30.0" prefWidth="142.0" text="Reservation Id " textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblReservationIdO" prefHeight="30.0" prefWidth="69.0" text="R001" textFill="WHITE" GridPane.columnIndex="1">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label text="Room type       " textFill="WHITE" GridPane.rowIndex="1">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblRoomType0" layoutX="188.0" layoutY="6.0" prefHeight="30.0" prefWidth="69.0" text="AC" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label text="Key Money" textFill="WHITE" GridPane.rowIndex="2">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblKeyMoneyO" text="2000" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label prefHeight="30.0" prefWidth="228.0" text="Date        " textFill="WHITE" GridPane.rowIndex="3">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblDateO" prefHeight="30.0" prefWidth="131.0" text="2023/02/23" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+      <ComboBox fx:id="cmbOnGoingReservations" layoutX="482.0" layoutY="219.0" onAction="#cmbOnGoingReservationsOnAction" prefHeight="37.0" prefWidth="185.0" promptText="Select a Reservation" stylesheets="@../assets/css/main.css" />
+      <Label layoutX="482.0" layoutY="163.0" text="On going reservations" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtSearchO" layoutX="482.0" layoutY="279.0" prefHeight="25.0" prefWidth="185.0" promptText="Search" stylesheets="@../assets/css/main.css">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="638.0" layoutY="289.0" opacity="0.5">
+         <image>
+            <Image url="@../assets/icons/search.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnComplete" layoutX="482.0" layoutY="344.0" mnemonicParsing="false" onAction="#btnCompleteOnAction" stylesheets="@../assets/css/main.css" text="Complete" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>
