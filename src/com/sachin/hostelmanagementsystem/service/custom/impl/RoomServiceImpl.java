@@ -56,7 +56,7 @@ public class RoomServiceImpl implements RoomService {
             throw new NotFoundException(roomDTO.getRoom_type_id() + " room doesn't exist");
         }
         try {
-            roomRepo.update(mapper.toRoom(roomDTO),session)
+            roomRepo.update(mapper.toRoom(roomDTO),session);
             transaction.commit();
             return roomDTO;
         } catch (Exception e) {
@@ -80,7 +80,9 @@ public class RoomServiceImpl implements RoomService {
     public long getAvailableRoomsCountForId(String roomId) throws NotFoundException {
         Session session = FactoryConfiguration.getInstance().getSession();
         Optional<Room> byPk = roomRepo.findByPk(roomId, session);
-        return byPk.map(Room::getQty).orElse(0L);
+        if(!byPk.isPresent())return 0;
+
+        return byPk.get().getQty();
     }
 
     private static ROOM_TYPE getRoomType(String roomType) {

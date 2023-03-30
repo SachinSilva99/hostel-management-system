@@ -1,6 +1,6 @@
 package com.sachin.hostelmanagementsystem.controller;
 
-import com.sachin.hostelmanagementsystem.entity.Room;
+import com.sachin.hostelmanagementsystem.dto.RoomDTO;
 import com.sachin.hostelmanagementsystem.service.ServiceFactory;
 import com.sachin.hostelmanagementsystem.service.ServiceType;
 import com.sachin.hostelmanagementsystem.service.custom.ReservationService;
@@ -44,7 +44,7 @@ public class ReservationsFormController {
     private ComboBox<?> cmbAvailableRooms;
 
     @FXML
-    private ComboBox<?> cmbKeyMoney;
+    private ComboBox<String> cmbKeyMoney;
 
     @FXML
     private Label lblRoomPrice;
@@ -66,7 +66,7 @@ public class ReservationsFormController {
         keyMoneyList.add("YES");
         keyMoneyList.add("NO");
         ObservableList<String> keyMoney = FXCollections.observableList(keyMoneyList);
-        cmbGender.setItems(keyMoney);
+        cmbKeyMoney.setItems(keyMoney);
     }
 
     private void loadRoomTypes() {
@@ -100,8 +100,10 @@ public class ReservationsFormController {
         lblAvailableRoomsCount.setText(String.valueOf(availableRoomsCountForType));
 
         //loading ids of selected room type
-        List<String> roomIds = roomService.getRoomIds(roomType);
-        cmbRoomId.setItems(FXCollections.observableList(roomIds));
+        if(availableRoomsCountForType!=0) {
+            List<String> roomIds = roomService.getRoomIds(roomType);
+            cmbRoomId.setItems(FXCollections.observableList(roomIds));
+        }
     }
 
     @FXML
@@ -112,6 +114,8 @@ public class ReservationsFormController {
         lblAvailableRoomsCount.setText(String.valueOf(availableRoomsCountForId));
 
         //Loading key money to selected room id
-        roomService.getRoom(roomId)
+        RoomDTO roomDTO = roomService.getRoom(roomId);
+        double keyMoney = roomDTO.getKey_money();
+        lblRoomPrice.setText(String.valueOf(keyMoney));
     }
 }
