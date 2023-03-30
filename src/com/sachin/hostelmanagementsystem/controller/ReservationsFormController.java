@@ -13,10 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -45,8 +42,7 @@ public class ReservationsFormController {
     @FXML
     private ComboBox<String> cmbRoomType;
 
-    @FXML
-    private ComboBox<?> cmbAvailableRooms;
+
 
     @FXML
     private ComboBox<String> cmbKeyMoney;
@@ -101,8 +97,12 @@ public class ReservationsFormController {
     private void loadAvailableRooms() {
         //loading how many numbers of rooms available for selected room type
         String roomType = cmbRoomType.getSelectionModel().getSelectedItem();
-        long availableRoomsCountForType = roomService.getAvailableRoomsCountForType(roomType);
-        lblAvailableRoomsCount.setText(String.valueOf(availableRoomsCountForType));
+        long availableRoomsCountForType = 0;
+
+        if (roomType != null) {
+            availableRoomsCountForType = roomService.getAvailableRoomsCountForType(roomType);
+            lblAvailableRoomsCount.setText(String.valueOf(availableRoomsCountForType));
+        }
 
         //loading ids of selected room type
         if (availableRoomsCountForType != 0) {
@@ -115,13 +115,18 @@ public class ReservationsFormController {
     public void cmbRoomIdOnAction(ActionEvent actionEvent) {
         //loading how many numbers of rooms available for selected room id
         String roomId = cmbRoomId.getSelectionModel().getSelectedItem();
-        long availableRoomsCountForId = roomService.getAvailableRoomsCountForId(roomId);
-        lblAvailableRoomsCount.setText(String.valueOf(availableRoomsCountForId));
+        long availableRoomsCountForId = 0;
+        if (roomId != null) {
+            availableRoomsCountForId = roomService.getAvailableRoomsCountForId(roomId);
+            lblAvailableRoomsCount.setText(String.valueOf(availableRoomsCountForId));
+        }
 
         //Loading key money to selected room id
-        RoomDTO roomDTO = roomService.getRoom(roomId);
-        double keyMoney = roomDTO.getKey_money();
-        lblRoomPrice.setText(String.valueOf(keyMoney));
+        if (availableRoomsCountForId != 0) {
+            RoomDTO roomDTO = roomService.getRoom(roomId);
+            double keyMoney = roomDTO.getKey_money();
+            lblRoomPrice.setText(String.valueOf(keyMoney));
+        }
     }
 
     public void btnProceedOnAction(ActionEvent actionEvent) {
@@ -131,17 +136,39 @@ public class ReservationsFormController {
         String studentId = txtStudentId.getText();
         String selectedItem = cmbGender.getSelectionModel().getSelectedItem();
         String roomId = cmbRoomId.getSelectionModel().getSelectedItem();
+        STATUS status = cmbKeyMoney.getSelectionModel().getSelectedItem().equals("YES") ? STATUS.ACCEPTED : STATUS.PENDING;
+
 
         StudentDTO studentDTO = new StudentDTO(
                 studentId, studentName, address, contact, new Date(), getGender(selectedItem)
         );
         ReservationDTO reservationDTO = new ReservationDTO(
-                "Res02", new Date(), STATUS.COMPLETED, roomId
+                "Res005", new Date(), status, roomId
         );
+        try {
+            reservationService.proceedReservation(studentDTO, reservationDTO);
+            clearAllFields();
+            new Alert(Alert.AlertType.CONFIRMATION, "Reservation Successful").show();
+        }catch (Exception e){
+            System.out.println( e.getMessage());
+            new Alert(Alert.AlertType.ERROR, "Reservation Failed").show();
 
-        reservationService.proceedReservation(studentDTO, reservationDTO);
-        System.out.println("Success");
+        }
 
+
+    }
+
+    private void clearAllFields() {
+        txtStudentId.clear();
+        txtName.clear();
+        txtContact.clear();
+        txtAddress.clear();
+        cmbGender.getSelectionModel().clearSelection();
+        cmbRoomId.getSelectionModel().clearSelection();
+        cmbKeyMoney.getSelectionModel().clearSelection();
+        cmbRoomType.getSelectionModel().getSelectedItem();
+        lblRoomPrice.setText("");
+        lblAvailableRoomsCount.setText("");
     }
 
     private static GENDER getGender(String selectedItem) {

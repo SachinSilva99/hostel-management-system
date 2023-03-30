@@ -19,7 +19,7 @@
             <Image url="@../assets/images/hostel_logo.png" />
          </image>
       </ImageView>
-      <Button alignment="CENTER" layoutX="96.0" layoutY="182.0" mnemonicParsing="false" onAction="#test" prefHeight="54.0" prefWidth="253.0" stylesheets="@../assets/css/main.css" text="Dashboard" textFill="WHITE">
+      <Button alignment="CENTER" layoutX="96.0" layoutY="182.0" mnemonicParsing="false" onAction="#btnDashboardOnAction" prefHeight="54.0" prefWidth="253.0" stylesheets="@../assets/css/main.css" text="Dashboard" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
