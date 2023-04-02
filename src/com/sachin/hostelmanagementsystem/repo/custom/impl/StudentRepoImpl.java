@@ -68,9 +68,14 @@ public class StudentRepoImpl implements StudentRepo {
     }
 
     @Override
+    public List<Student> search(String text, Session session) {
+        return null;
+    }
+
+    @Override
     public List<Student> studentsWhoNoTPaidKeyMoney(Session session) {
         String hql = "SELECT s FROM Student s LEFT JOIN s.reservations r WHERE r.status = :status OR r.res_id IS NULL";
-        List<Student> unpaidStudents = session.createQuery(hql)
+        List unpaidStudents = session.createQuery(hql)
                 .setParameter("status", STATUS.PENDING)
                 .getResultList();
         return unpaidStudents;

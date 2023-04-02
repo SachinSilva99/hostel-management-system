@@ -47,7 +47,7 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" layoutX="96.0" layoutY="358.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="253.0" stylesheets="@../assets/css/main.css" text="Students" textFill="WHITE">
+      <Button alignment="CENTER" layoutX="96.0" layoutY="358.0" mnemonicParsing="false" onAction="#btnStudentOnAction" prefHeight="54.0" prefWidth="253.0" stylesheets="@../assets/css/main.css" text="Students" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>

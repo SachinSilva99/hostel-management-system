@@ -15,6 +15,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +24,9 @@ import java.util.List;
 public class ReservationsFormController {
     @FXML
     public ComboBox<String> cmbRoomId;
+    @FXML
+    public DatePicker dtDob;
+    public Label lblResId;
     @FXML
     private Label lblAvailableRoomsCount;
     @FXML
@@ -60,6 +65,12 @@ public class ReservationsFormController {
         loadGender();
         loadRoomTypes();
         loadKeyMoneyCmb();
+        loadLastRes_id(null);
+    }
+
+    private void loadLastRes_id(String res_id) {
+        String resId = reservationService.generateResId(res_id);
+        lblResId.setText(resId);
     }
 
     private void loadKeyMoneyCmb() {
@@ -137,17 +148,19 @@ public class ReservationsFormController {
         String selectedItem = cmbGender.getSelectionModel().getSelectedItem();
         String roomId = cmbRoomId.getSelectionModel().getSelectedItem();
         STATUS status = cmbKeyMoney.getSelectionModel().getSelectedItem().equals("YES") ? STATUS.ACCEPTED : STATUS.PENDING;
-
+        LocalDate localDate = dtDob.getValue();
+        Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
         StudentDTO studentDTO = new StudentDTO(
-                studentId, studentName, address, contact, new Date(), getGender(selectedItem)
+                studentId, studentName, address, contact, date, getGender(selectedItem)
         );
         ReservationDTO reservationDTO = new ReservationDTO(
-                "Res005", new Date(), status, roomId,studentDTO
+                reservationService.generateResId(lblResId.getText()), new Date(), status, roomId,studentDTO
         );
         try {
             reservationService.proceedReservation(reservationDTO);
             clearAllFields();
+            loadLastRes_id(lblResId.getText());
             new Alert(Alert.AlertType.CONFIRMATION, "Reservation Successful").show();
         }catch (Exception e){
             System.out.println( e.getMessage());
@@ -156,6 +169,7 @@ public class ReservationsFormController {
     }
 
     private void clearAllFields() {
+        dtDob.setValue(null);
         txtStudentId.clear();
         txtName.clear();
         txtContact.clear();

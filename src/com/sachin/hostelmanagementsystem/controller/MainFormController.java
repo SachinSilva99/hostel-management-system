@@ -18,21 +18,23 @@ public class MainFormController {
 
     }
 
-    public void test(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Route.DASHBOARD, subAnchorPane);
-    }
 
     @FXML
-    public void btnRoomsOnAction(ActionEvent actionEvent) throws IOException {
+    public void btnRoomsOnAction(ActionEvent actionEvent)  {
 
     }
 
-    public void btnPlaceReservationsOnAction(ActionEvent actionEvent) throws IOException {
+    public void btnPlaceReservationsOnAction(ActionEvent actionEvent)  {
         Navigation.navigate(Route.RESERVATION, subAnchorPane);
     }
 
     @FXML
-    public void btnDashboardOnAction(ActionEvent actionEvent) throws IOException {
+    public void btnDashboardOnAction(ActionEvent actionEvent)  {
         Navigation.navigate(Route.DASHBOARD, subAnchorPane);
+    }
+
+    @FXML
+    public void btnStudentOnAction(ActionEvent actionEvent) {
+        Navigation.navigate(Route.STUDENT, subAnchorPane);
     }
 }

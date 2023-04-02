@@ -86,7 +86,7 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public ReservationDTO update(String selectedItem,STATUS status) throws NotFoundException {
+    public ReservationDTO update(String selectedItem, STATUS status) throws NotFoundException {
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
         try {
@@ -103,11 +103,11 @@ public class ReservationServiceImpl implements ReservationService {
             roomRepo.update(room, session);
             Reservation updateReservation = reservationRepo.update(reservation, session);
             transaction.commit();
-            return mapper.toReservationDto(updateReservation,mapper.toStudentDto(reservation.getStudent()));
-        }catch (Exception e){
+            return mapper.toReservationDto(updateReservation, mapper.toStudentDto(reservation.getStudent()));
+        } catch (Exception e) {
             transaction.rollback();
             throw new ReservationFailedException("failed to update reservation");
-        }finally {
+        } finally {
             session.close();
         }
 
@@ -117,10 +117,24 @@ public class ReservationServiceImpl implements ReservationService {
     public ReservationDTO getReservation(String res_id) {
         Session session = FactoryConfiguration.getInstance().getSession();
         Optional<Reservation> byPk = reservationRepo.findByPk(res_id, session);
-        if(!byPk.isPresent()){
+        if (!byPk.isPresent()) {
             return null;
         }
         StudentDTO studentDto = mapper.toStudentDto(byPk.get().getStudent());
-        return mapper.toReservationDto(byPk.get(),studentDto);
+        return mapper.toReservationDto(byPk.get(), studentDto);
+    }
+
+    @Override
+    public String generateResId(String currentResId) {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        if (currentResId != null) {
+            String[] split = currentResId.split("RS00");
+            int id = Integer.parseInt(split[1]);
+            id += 1;
+            return "RS00" + id;
+        }
+        String lastResId = reservationRepo.getLastResId(session);
+        if(lastResId == null)return "RS001";
+        return lastResId;
     }
 }

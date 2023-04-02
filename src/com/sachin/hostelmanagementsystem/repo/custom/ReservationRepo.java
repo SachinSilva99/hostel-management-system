@@ -10,4 +10,6 @@ import java.util.List;
 
 public interface ReservationRepo extends CrudRepo<Reservation, String> {
     List<String> getReservations(Session session, STATUS status);
+
+    String getLastResId(Session session);
 }

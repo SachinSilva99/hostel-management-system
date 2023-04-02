@@ -70,10 +70,27 @@ public class ReservationRepoImpl implements ReservationRepo {
     }
 
     @Override
+    public List<Reservation> search(String text, Session session) {
+        String hql = "FROM Reservation R WHERE R.id = :text or R.student.student_id = :text or R.room.room_type_id = :text";
+        Query query = session.createQuery(hql);
+        query.setParameter("text", text);
+        return query.list();
+    }
+
+    @Override
     public List<String> getReservations(Session session, STATUS status) {
         String hql = "select R.res_id FROM Reservation R WHERE R.status = :status";
         Query query = session.createQuery(hql);
         query.setParameter("status", status);
         return query.list();
+    }
+
+    @Override
+    public String getLastResId(Session session) {
+        String hql = "select R.res_id FROM Reservation R order by R.res_id desc";
+        Query query = session.createQuery(hql);
+        query.setMaxResults(1);
+        if(query.uniqueResult() == null)return null;
+        return(String) query.uniqueResult();
     }
 }

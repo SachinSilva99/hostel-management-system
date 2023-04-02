@@ -11,13 +11,14 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 public class Test {
     public static void main(String[] args) {
-        Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
+//        Session session = FactoryConfiguration.getInstance().getSession();
+//        Transaction transaction = session.beginTransaction();
 /*        Student student = new Student(
                 "S001", "sachin", "beruwala",
                 "077", new Date(1999, 7, 14),
@@ -32,9 +33,18 @@ public class Test {
         room.setReservations(reservations);
         session.save(student);
         session.save(room);
-        session.save(reservation);*/
-        Student s001 = session.load(Student.class, "S001");
-        session.delete(s001);
-        transaction.commit();
+//        session.save(reservation);*/
+//        Student s001 = session.load(Student.class, "S001");
+//        session.delete(s001);
+//        transaction.commit();
+        String currentResId = "RS009";
+        String[] split = currentResId.split("RS00");
+        for(String a : split){
+            System.out.println(a);
+        }
+        int id = Integer.parseInt(split[1]);
+        id += 1;
+       String result = "RS00" + id;
+        System.out.println(result);
     }
 }

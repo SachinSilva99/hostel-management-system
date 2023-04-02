@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class Navigation {
     private static AnchorPane pane;
-    public static void navigate(Route route, AnchorPane pane) throws IOException {
+    public static void navigate(Route route, AnchorPane pane)  {
         Navigation.pane = pane;
         Navigation.pane.getChildren().clear();
         System.out.println(pane);
@@ -24,12 +24,20 @@ public class Navigation {
                 window.setTitle("Reservation");
                 initUI("ReservationsForm.fxml");
                 break;
+            case STUDENT:
+                window.setTitle("Student");
+                initUI("StudentForm.fxml");
+                break;
             default:
                 new Alert(Alert.AlertType.ERROR, "Not suitable UI found!").show();
         }
     }
-    private static void initUI(String location) throws IOException {
-        Navigation.pane.getChildren().add(FXMLLoader.load(Navigation.class
-                .getResource("/com/sachin/hostelmanagementsystem/view/" + location)));
+    private static void initUI(String location)  {
+        try {
+            Navigation.pane.getChildren().add(FXMLLoader.load(Navigation.class
+                    .getResource("/com/sachin/hostelmanagementsystem/view/" + location)));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

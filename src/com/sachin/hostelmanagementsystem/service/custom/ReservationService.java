@@ -15,5 +15,6 @@ public interface ReservationService extends SuperService {
     ReservationDTO update(String selectedItem, STATUS status);
 
     ReservationDTO getReservation(String res_id);
+    String generateResId(String currentResId);
 
 }

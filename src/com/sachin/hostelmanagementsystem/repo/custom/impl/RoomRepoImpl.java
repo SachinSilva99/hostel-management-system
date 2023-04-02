@@ -69,6 +69,14 @@ public class RoomRepoImpl implements RoomRepo {
     }
 
     @Override
+    public List<Room> search(String text, Session session) {
+        String hql = "from Room R where R.room_type_id = :text";
+        Query query = session.createQuery(hql);
+        query.setParameter("text", text);
+        return query.list();
+    }
+
+    @Override
     public long getAvailableRoomsCount(Session session) {
         Query query = session.createQuery("select sum(r.qty) from Room r");
         return query.uniqueResult() == null ? 0 : (Long) query.uniqueResult();
