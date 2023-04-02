@@ -70,10 +70,10 @@ public class ReservationRepoImpl implements ReservationRepo {
     }
 
     @Override
-    public List<String> getPendingReservations(Session session) {
+    public List<String> getReservations(Session session, STATUS status) {
         String hql = "select R.res_id FROM Reservation R WHERE R.status = :status";
         Query query = session.createQuery(hql);
-        query.setParameter("status", STATUS.PENDING);
+        query.setParameter("status", status);
         return query.list();
     }
 }

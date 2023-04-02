@@ -18,7 +18,6 @@ public class FactoryConfiguration {
     private FactoryConfiguration()  {
 
         Configuration configure = new Configuration();
-        configure.setProperty("hibernate.properties", "hibernate.properties");
 
         configure
                 .addAnnotatedClass(Reservation.class)

@@ -56,12 +56,13 @@ public class Mapper {
         );
     }
 
-    public ReservationDTO toReservationDto(Reservation reservation) {
+    public ReservationDTO toReservationDto(Reservation reservation, StudentDTO studentDTO) {
         return new ReservationDTO(
                 reservation.getRes_id(),
                 reservation.getDate(),
                 reservation.getStatus(),
-                reservation.getRoom().getRoom_type_id()
+                reservation.getRoom().getRoom_type_id(),
+                toStudentDto(reservation.getStudent())
         );
     }
 }

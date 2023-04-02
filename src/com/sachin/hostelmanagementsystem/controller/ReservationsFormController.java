@@ -143,19 +143,16 @@ public class ReservationsFormController {
                 studentId, studentName, address, contact, new Date(), getGender(selectedItem)
         );
         ReservationDTO reservationDTO = new ReservationDTO(
-                "Res005", new Date(), status, roomId
+                "Res005", new Date(), status, roomId,studentDTO
         );
         try {
-            reservationService.proceedReservation(studentDTO, reservationDTO);
+            reservationService.proceedReservation(reservationDTO);
             clearAllFields();
             new Alert(Alert.AlertType.CONFIRMATION, "Reservation Successful").show();
         }catch (Exception e){
             System.out.println( e.getMessage());
             new Alert(Alert.AlertType.ERROR, "Reservation Failed").show();
-
         }
-
-
     }
 
     private void clearAllFields() {

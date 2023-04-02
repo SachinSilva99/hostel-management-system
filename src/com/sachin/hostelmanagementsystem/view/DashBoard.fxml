@@ -162,7 +162,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label fx:id="lblRoomType0" layoutX="188.0" layoutY="6.0" prefHeight="30.0" prefWidth="69.0" text="AC" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label fx:id="lblRoomTypeO" layoutX="188.0" layoutY="6.0" prefHeight="30.0" prefWidth="69.0" text="AC" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font size="20.0" />
                </font>

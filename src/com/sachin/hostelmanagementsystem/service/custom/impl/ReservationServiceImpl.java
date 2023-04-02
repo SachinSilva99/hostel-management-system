@@ -30,10 +30,10 @@ public class ReservationServiceImpl implements ReservationService {
     private final Mapper mapper = new Mapper();
 
     @Override
-    public void proceedReservation(StudentDTO studentDTO, ReservationDTO reservationDTO) throws ReservationFailedException {
+    public void proceedReservation(ReservationDTO reservationDTO) throws ReservationFailedException {
         Session session = FactoryConfiguration.getInstance().getSession();
 
-        Student student = mapper.toStudent(studentDTO);
+        Student student = mapper.toStudent(reservationDTO.getStudentDTO());
         Reservation reservation = mapper.toReservation(reservationDTO);
 
         Transaction transaction = session.beginTransaction();
@@ -73,16 +73,16 @@ public class ReservationServiceImpl implements ReservationService {
         if (!byPk.isPresent()) {
             throw new NotFoundException(byPk + " is not found");
         }
-        return mapper.toReservationDto(byPk.get());
+        StudentDTO studentDto = mapper.toStudentDto(byPk.get().getStudent());
+        return mapper.toReservationDto(byPk.get(), studentDto);
     }
 
     @Override
-    public List<String> getPendingReservations() {
+    public List<String> getReservations(STATUS status) {
         Session session = FactoryConfiguration.getInstance().getSession();
-        List<String> pendingReservations = reservationRepo.getPendingReservations(session);
+        List<String> pendingReservations = reservationRepo.getReservations(session, status);
         session.close();
         return pendingReservations;
-
     }
 
     @Override
@@ -103,7 +103,7 @@ public class ReservationServiceImpl implements ReservationService {
             roomRepo.update(room, session);
             Reservation updateReservation = reservationRepo.update(reservation, session);
             transaction.commit();
-            return mapper.toReservationDto(updateReservation);
+            return mapper.toReservationDto(updateReservation,mapper.toStudentDto(reservation.getStudent()));
         }catch (Exception e){
             transaction.rollback();
             throw new ReservationFailedException("failed to update reservation");
@@ -111,5 +111,16 @@ public class ReservationServiceImpl implements ReservationService {
             session.close();
         }
 
+    }
+
+    @Override
+    public ReservationDTO getReservation(String res_id) {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Optional<Reservation> byPk = reservationRepo.findByPk(res_id, session);
+        if(!byPk.isPresent()){
+            return null;
+        }
+        StudentDTO studentDto = mapper.toStudentDto(byPk.get().getStudent());
+        return mapper.toReservationDto(byPk.get(),studentDto);
     }
 }

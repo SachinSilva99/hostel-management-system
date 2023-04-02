@@ -8,10 +8,12 @@ import com.sachin.hostelmanagementsystem.service.SuperService;
 import java.util.List;
 
 public interface ReservationService extends SuperService {
-    void proceedReservation(StudentDTO studentDTO, ReservationDTO reservationDTO);
+    void proceedReservation(ReservationDTO reservationDTO);
     ReservationDTO getReservationDTO(String res_id);
-    List<String> getPendingReservations();
+    List<String> getReservations(STATUS status);
 
     ReservationDTO update(String selectedItem, STATUS status);
+
+    ReservationDTO getReservation(String res_id);
 
 }

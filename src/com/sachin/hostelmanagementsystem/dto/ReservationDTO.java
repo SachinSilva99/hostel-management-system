@@ -19,4 +19,6 @@ public class ReservationDTO {
     private STATUS status;
 
     private String roomTypeId;
+
+    private StudentDTO studentDTO;
 }

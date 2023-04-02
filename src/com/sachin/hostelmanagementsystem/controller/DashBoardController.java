@@ -64,7 +64,7 @@ public class DashBoardController {
     private Label lblReservationIdO;
 
     @FXML
-    private Label lblRoomType0;
+    private Label lblRoomTypeO;
 
     @FXML
     private Label lblKeyMoneyO;
@@ -73,7 +73,7 @@ public class DashBoardController {
     private Label lblDateO;
 
     @FXML
-    private ComboBox<?> cmbOnGoingReservations;
+    private ComboBox<String> cmbOnGoingReservations;
 
 
     @FXML
@@ -83,6 +83,7 @@ public class DashBoardController {
         loadRemainingRooms();
         loadNoOfStudentsNotPaidKeyMoney();
         loadNotPaidStudentIds();
+        loadOnGoingReservations();
     }
 
 
@@ -90,11 +91,13 @@ public class DashBoardController {
     void btnAcceptOnAction(ActionEvent event) {
         try {
             reservationService.update(cmbPendingReservations.getSelectionModel().getSelectedItem(), STATUS.ACCEPTED);
-        }catch (Exception e){
-            new Alert(Alert.AlertType.ERROR, "Did not complete").show();
+            new Alert(Alert.AlertType.CONFIRMATION, "Accepted Successfully").show();
+            clearFields();
+            cmbPendingReservations.getSelectionModel().clearSelection();
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "Did not accept").show();
         }
-        new Alert(Alert.AlertType.CONFIRMATION, "Accepted Successfully").show();
-        clearFields();
+
 
     }
 
@@ -102,28 +105,58 @@ public class DashBoardController {
     void btnCancelOnAction(ActionEvent event) {
         try {
             reservationService.update(cmbPendingReservations.getSelectionModel().getSelectedItem(), STATUS.CANCELLED);
-        }catch (Exception e){
-            new Alert(Alert.AlertType.ERROR, "Didi not complete").show();
+            new Alert(Alert.AlertType.CONFIRMATION, "Cancelled Successfully").show();
+            clearFields();
+            cmbPendingReservations.getSelectionModel().clearSelection();
+            loadNotPaidStudentIds();
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "Did not cancel").show();
         }
-        new Alert(Alert.AlertType.CONFIRMATION, "Cancelled Successfully").show();
-        clearFields();
+
     }
 
     @FXML
     void btnCompleteOnAction(ActionEvent event) {
+        String res_id = cmbOnGoingReservations.getSelectionModel().getSelectedItem();
+        if (res_id != null) {
+            try {
+                reservationService.update(res_id, STATUS.COMPLETED);
+                new Alert(Alert.AlertType.CONFIRMATION, res_id + " Completed Successfully").show();
+                clearFieldsC();
+                cmbPendingReservations.getSelectionModel().clearSelection();
+                loadNotPaidStudentIds();
+                loadOnGoingReservations();
+            } catch (Exception e) {
+                new Alert(Alert.AlertType.ERROR, res_id + " did not complete").show();
+            }
 
-
+        }
     }
 
     @FXML
     void cmbOnGoingReservationsOnAction(ActionEvent event) {
+        String resId = cmbOnGoingReservations.getSelectionModel().getSelectedItem();
+        if (resId == null) return;
 
+        ReservationDTO dto = reservationService.getReservation(resId);
+        lblReservationIdO.setText(dto.getRes_id());
+        lblRoomTypeO.setText(String.valueOf(roomService.getRoom(dto.getRoomTypeId()).getRoomType()));
+        lblKeyMoneyO.setText(String.valueOf(roomService.getRoom(dto.getRoomTypeId()).getKey_money()));
+        lblDateO.setText(String.valueOf(dto.getDate()));
+        lblStudentIdO.setText(dto.getStudentDTO().getStudent_id());
+
+
+    }
+
+    private void loadOnGoingReservations() {
+        List<String> reservations = reservationService.getReservations(STATUS.ACCEPTED);
+        cmbOnGoingReservations.setItems(FXCollections.observableList(reservations));
     }
 
 
     private void loadNotPaidStudentIds() {
         //loading the pending reservations id
-        List<String> pendingReservations = reservationService.getPendingReservations();
+        List<String> pendingReservations = reservationService.getReservations(STATUS.PENDING);
         System.out.println(pendingReservations);
         ObservableList<String> strings = FXCollections.observableList(pendingReservations);
         cmbPendingReservations.setItems(strings);
@@ -143,18 +176,28 @@ public class DashBoardController {
     @FXML
     public void cmbPendingReservationsOnAction(ActionEvent actionEvent) {
         String res_id = cmbPendingReservations.getSelectionModel().getSelectedItem();
+        if (res_id == null) return;
         ReservationDTO dto = reservationService.getReservationDTO(res_id);
-
         lblReservationIdP.setText(dto.getRes_id());
         lblRoomTypeP.setText(String.valueOf(roomService.getRoom(dto.getRoomTypeId()).getRoomType()));
         lblKeyMoneyP.setText(String.valueOf(roomService.getRoom(dto.getRoomTypeId()).getKey_money()));
         lblDateP.setText(String.valueOf(dto.getDate()));
+        lblStudent_idP.setText(dto.getStudentDTO().getStudent_id());
 
     }
-    private void clearFields(){
+
+    private void clearFields() {
         lblStudent_idP.setText("");
         lblRoomTypeP.setText("");
         lblKeyMoneyP.setText("");
         lblDateP.setText("");
+    }
+
+    private void clearFieldsC() {
+        lblReservationIdO.setText("");
+        lblRoomTypeO.setText("");
+        lblKeyMoneyO.setText("");
+        lblDateO.setText("");
+        lblStudentIdO.setText("");
     }
 }
