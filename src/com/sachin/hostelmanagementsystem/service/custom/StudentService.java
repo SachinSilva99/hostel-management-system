@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface StudentService extends SuperService {
     List<StudentDTO> findAll();
+    List<StudentDTO> search(String text);
     List<StudentDTO> studentsWhoNoTPaidKeyMoney();
 
     List<String> getReservationsForStudent(String studentId);

@@ -32,6 +32,20 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public List<StudentDTO> search(String text) {
+        Session session = FactoryConfiguration.getInstance().getSession();
+//        List<StudentDTO> studentDTOS = studentRepo.search(text, session).stream().map(student -> mapper.toStudentDto(student)).collect(Collectors.toList());
+//        session.close();
+//        return studentDTOS;
+        List<StudentDTO> studentDTOList = studentRepo.search(text, session).stream().map(
+                student -> mapper.toStudentDto(student)).collect(Collectors.toList()
+        );
+        session.close();
+        System.out.println(studentDTOList);
+        return studentDTOList;
+    }
+
+    @Override
     public List<StudentDTO> studentsWhoNoTPaidKeyMoney() {
         Session session = FactoryConfiguration.getInstance().getSession();
         List<Student> students = studentRepo.studentsWhoNoTPaidKeyMoney(session);
@@ -44,7 +58,7 @@ public class StudentServiceImpl implements StudentService {
     public List<String> getReservationsForStudent(String studentId) {
         Session session = FactoryConfiguration.getInstance().getSession();
         Optional<Student> byPk = studentRepo.findByPk(studentId, session);
-        if(!byPk.isPresent())return new ArrayList<>();
+        if (!byPk.isPresent()) return new ArrayList<>();
         List<String> collect = byPk.get().getReservations().stream().map(r -> r.getRes_id()).collect(Collectors.toList());
         session.close();
         return collect;

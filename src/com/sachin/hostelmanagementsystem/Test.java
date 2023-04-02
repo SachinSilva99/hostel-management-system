@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Test {
     public static void main(String[] args) {
@@ -37,7 +38,7 @@ public class Test {
 //        Student s001 = session.load(Student.class, "S001");
 //        session.delete(s001);
 //        transaction.commit();
-        String currentResId = "RS009";
+       /* String currentResId = "RS009";
         String[] split = currentResId.split("RS00");
         for(String a : split){
             System.out.println(a);
@@ -45,6 +46,12 @@ public class Test {
         int id = Integer.parseInt(split[1]);
         id += 1;
        String result = "RS00" + id;
-        System.out.println(result);
+        System.out.println(result);*/
+        ArrayList<String> list = new ArrayList<>();
+        list.add("Sachin");
+        list.add("Saman");
+        list.add("Sanath");
+        List<String> s1 = list.stream().filter(s -> s.contains("") || s.contains("")).collect(Collectors.toList());
+        System.out.println(s1);
     }
 }

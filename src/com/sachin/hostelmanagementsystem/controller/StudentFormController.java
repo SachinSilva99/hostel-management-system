@@ -10,13 +10,18 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
 public class StudentFormController {
-    private final StudentService  studentService = ServiceFactory.getInstance().getService(ServiceType.STUDENT);
+    private final StudentService studentService = ServiceFactory.getInstance().getService(ServiceType.STUDENT);
+    @FXML
+    public DatePicker dtDob;
 
 
     @FXML
@@ -56,7 +61,8 @@ public class StudentFormController {
     private Button btnUpdate;
 
     @FXML
-    public void initialize(){
+    public void initialize() {
+        clearFields();
         loadStudents();
     }
 
@@ -74,6 +80,28 @@ public class StudentFormController {
 
     @FXML
     void txtSearchOnKeyReleased(KeyEvent event) {
+        List<StudentDTO> studentDTOS = studentService.search(txtSearch.getText());
+        ObservableList<StudentDTO> studentDTOS1 = FXCollections.observableList(studentDTOS);
+        tblStudents.setItems(studentDTOS1);
+        clearFields();
+    }
 
+    private void clearFields() {
+        txtName.clear();
+        txtAddress.clear();
+        txtContact_no.clear();
+        dtDob.setValue(null);
+    }
+
+    @FXML
+    public void tblStudentsOnClick(MouseEvent mouseEvent) {
+        TableView.TableViewSelectionModel<StudentDTO> selectionModel = tblStudents.getSelectionModel();
+        StudentDTO dto = selectionModel.getSelectedItem();
+        txtName.setText(dto.getName());
+        txtAddress.setText(dto.getAddress());
+        txtContact_no.setText(dto.getContact_no());
+        Date dob = dto.getDob();
+        LocalDate localDate = dob.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        dtDob.setValue(localDate);
     }
 }

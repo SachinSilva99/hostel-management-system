@@ -6,9 +6,11 @@ import com.sachin.hostelmanagementsystem.repo.custom.StudentRepo;
 import com.sachin.hostelmanagementsystem.repo.exception.ConstraintViolationException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class StudentRepoImpl implements StudentRepo {
 
@@ -69,7 +71,14 @@ public class StudentRepoImpl implements StudentRepo {
 
     @Override
     public List<Student> search(String text, Session session) {
-        return null;
+        CriteriaQuery<Student> query = session.getCriteriaBuilder().createQuery(Student.class);
+        query.from(Student.class);
+        List<Student> all = session.createQuery(query).getResultList();
+        List<Student> students =
+                all.stream()
+                        .filter(student -> student.getStudent_id().contains(text) || student.getName().contains(text))
+                        .collect(Collectors.toList());
+        return students;
     }
 
     @Override
