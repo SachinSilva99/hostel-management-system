@@ -9,6 +9,7 @@ import com.sachin.hostelmanagementsystem.service.SuperService;
 import com.sachin.hostelmanagementsystem.service.custom.ReservationService;
 import com.sachin.hostelmanagementsystem.service.custom.RoomService;
 import com.sachin.hostelmanagementsystem.service.custom.StudentService;
+import com.sachin.hostelmanagementsystem.service.exception.NotFoundException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -149,8 +150,12 @@ public class DashBoardController {
         if (resId == null) return;
         ReservationDTO dto = reservationService.getReservation(resId);
         lblReservationIdO.setText(dto.getRes_id());
-        lblRoomTypeO.setText(String.valueOf(roomService.getRoom(dto.getRoomTypeId()).getRoomType()));
-        lblKeyMoneyO.setText(String.valueOf(roomService.getRoom(dto.getRoomTypeId()).getKey_money()));
+        try {
+            lblRoomTypeO.setText(String.valueOf(roomService.getRoom(dto.getRoomTypeId()).getRoomType()));
+            lblKeyMoneyO.setText(String.valueOf(roomService.getRoom(dto.getRoomTypeId()).getKey_money()));
+        } catch (NotFoundException e) {
+            throw new RuntimeException(e);
+        }
         lblDateO.setText(String.valueOf(dto.getDate()));
         lblStudentIdO.setText(dto.getStudentDTO().getStudent_id());
 
@@ -186,12 +191,16 @@ public class DashBoardController {
     public void cmbPendingReservationsOnAction(ActionEvent actionEvent) {
         String res_id = cmbPendingReservations.getSelectionModel().getSelectedItem();
         if (res_id == null) return;
-        ReservationDTO dto = reservationService.getReservationDTO(res_id);
-        lblReservationIdP.setText(dto.getRes_id());
-        lblRoomTypeP.setText(String.valueOf(roomService.getRoom(dto.getRoomTypeId()).getRoomType()));
-        lblKeyMoneyP.setText(String.valueOf(roomService.getRoom(dto.getRoomTypeId()).getKey_money()));
-        lblDateP.setText(String.valueOf(dto.getDate()));
-        lblStudent_idP.setText(dto.getStudentDTO().getStudent_id());
+        try {
+            ReservationDTO dto = reservationService.getReservationDTO(res_id);
+            lblReservationIdP.setText(dto.getRes_id());
+            lblRoomTypeP.setText(String.valueOf(roomService.getRoom(dto.getRoomTypeId()).getRoomType()));
+            lblKeyMoneyP.setText(String.valueOf(roomService.getRoom(dto.getRoomTypeId()).getKey_money()));
+            lblDateP.setText(String.valueOf(dto.getDate()));
+            lblStudent_idP.setText(dto.getStudentDTO().getStudent_id());
+        }catch (Exception e){
+            throw new RuntimeException();
+        }
 
     }
 

@@ -2,14 +2,19 @@ package com.sachin.hostelmanagementsystem.service.custom.impl;
 
 import com.sachin.hostelmanagementsystem.dto.ReservationDTO;
 import com.sachin.hostelmanagementsystem.dto.StudentDTO;
+import com.sachin.hostelmanagementsystem.entity.Reservation;
 import com.sachin.hostelmanagementsystem.entity.Student;
 import com.sachin.hostelmanagementsystem.repo.RepoFactory;
 import com.sachin.hostelmanagementsystem.repo.RepoType;
 import com.sachin.hostelmanagementsystem.repo.custom.StudentRepo;
+import com.sachin.hostelmanagementsystem.repo.exception.ConstraintViolationException;
 import com.sachin.hostelmanagementsystem.service.custom.StudentService;
+import com.sachin.hostelmanagementsystem.service.exception.NotFoundException;
+import com.sachin.hostelmanagementsystem.service.exception.UpdateFailedException;
 import com.sachin.hostelmanagementsystem.util.FactoryConfiguration;
 import com.sachin.hostelmanagementsystem.util.Mapper;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +39,6 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<StudentDTO> search(String text) {
         Session session = FactoryConfiguration.getInstance().getSession();
-//        List<StudentDTO> studentDTOS = studentRepo.search(text, session).stream().map(student -> mapper.toStudentDto(student)).collect(Collectors.toList());
-//        session.close();
-//        return studentDTOS;
         List<StudentDTO> studentDTOList = studentRepo.search(text, session).stream().map(
                 student -> mapper.toStudentDto(student)).collect(Collectors.toList()
         );
@@ -59,9 +61,24 @@ public class StudentServiceImpl implements StudentService {
         Session session = FactoryConfiguration.getInstance().getSession();
         Optional<Student> byPk = studentRepo.findByPk(studentId, session);
         if (!byPk.isPresent()) return new ArrayList<>();
-        List<String> collect = byPk.get().getReservations().stream().map(r -> r.getRes_id()).collect(Collectors.toList());
+        List<String> collect = byPk.get().getReservations().stream().map(Reservation::getRes_id).collect(Collectors.toList());
         session.close();
         return collect;
     }
 
+    @Override
+    public StudentDTO update(StudentDTO dto) throws UpdateFailedException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            Student student = studentRepo.update(mapper.toStudent(dto), session);
+            transaction.commit();
+            return mapper.toStudentDto(student);
+        } catch (ConstraintViolationException e) {
+            transaction.rollback();
+            throw new UpdateFailedException();
+        }finally {
+            session.close();
+        }
+    }
 }

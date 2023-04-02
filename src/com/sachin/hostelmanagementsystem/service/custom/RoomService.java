@@ -6,6 +6,7 @@ import com.sachin.hostelmanagementsystem.entity.constants.ROOM_TYPE;
 import com.sachin.hostelmanagementsystem.service.SuperService;
 import com.sachin.hostelmanagementsystem.service.exception.AlreadyExists;
 import com.sachin.hostelmanagementsystem.service.exception.NotFoundException;
+import com.sachin.hostelmanagementsystem.service.exception.SavingFailedException;
 import com.sachin.hostelmanagementsystem.service.exception.UpdateFailedException;
 import org.hibernate.Session;
 
@@ -14,7 +15,7 @@ import java.util.List;
 public interface RoomService extends SuperService {
     long getAllAvailableRoomsCount();
     List<RoomDTO> findAll();
-    RoomDTO save(RoomDTO roomDTO) throws AlreadyExists;
+    RoomDTO save(RoomDTO roomDTO) throws AlreadyExists, SavingFailedException;
     RoomDTO update(RoomDTO roomDTO) throws NotFoundException, UpdateFailedException;
     long getAvailableRoomsCountForType(String roomType)throws NotFoundException;
     long getAvailableRoomsCountForId(String roomId)throws NotFoundException;

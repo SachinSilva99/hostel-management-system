@@ -1,6 +1,6 @@
 package com.sachin.hostelmanagementsystem.service.exception;
 
-public class AlreadyExists extends RuntimeException{
+public class AlreadyExists extends Exception{
     public AlreadyExists() {
     }
 

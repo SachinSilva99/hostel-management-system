@@ -9,6 +9,7 @@ import com.sachin.hostelmanagementsystem.service.ServiceFactory;
 import com.sachin.hostelmanagementsystem.service.ServiceType;
 import com.sachin.hostelmanagementsystem.service.custom.ReservationService;
 import com.sachin.hostelmanagementsystem.service.custom.RoomService;
+import com.sachin.hostelmanagementsystem.service.exception.NotFoundException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -111,7 +112,11 @@ public class ReservationsFormController {
         long availableRoomsCountForType = 0;
 
         if (roomType != null) {
-            availableRoomsCountForType = roomService.getAvailableRoomsCountForType(roomType);
+            try {
+                availableRoomsCountForType = roomService.getAvailableRoomsCountForType(roomType);
+            } catch (NotFoundException e) {
+                throw new RuntimeException(e);
+            }
             lblAvailableRoomsCount.setText(String.valueOf(availableRoomsCountForType));
         }
 
@@ -128,13 +133,22 @@ public class ReservationsFormController {
         String roomId = cmbRoomId.getSelectionModel().getSelectedItem();
         long availableRoomsCountForId = 0;
         if (roomId != null) {
-            availableRoomsCountForId = roomService.getAvailableRoomsCountForId(roomId);
+            try {
+                availableRoomsCountForId = roomService.getAvailableRoomsCountForId(roomId);
+            } catch (NotFoundException e) {
+                throw new RuntimeException(e);
+            }
             lblAvailableRoomsCount.setText(String.valueOf(availableRoomsCountForId));
         }
 
         //Loading key money to selected room id
         if (availableRoomsCountForId != 0) {
-            RoomDTO roomDTO = roomService.getRoom(roomId);
+            RoomDTO roomDTO = null;
+            try {
+                roomDTO = roomService.getRoom(roomId);
+            } catch (NotFoundException e) {
+                throw new RuntimeException(e);
+            }
             double keyMoney = roomDTO.getKey_money();
             lblRoomPrice.setText(String.valueOf(keyMoney));
         }

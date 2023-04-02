@@ -1,6 +1,6 @@
 package com.sachin.hostelmanagementsystem.service.exception;
 
-public class SavingFailedException extends RuntimeException{
+public class SavingFailedException extends Exception{
     public SavingFailedException() {
     }
 

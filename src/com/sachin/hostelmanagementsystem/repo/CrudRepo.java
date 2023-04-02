@@ -1,8 +1,8 @@
 package com.sachin.hostelmanagementsystem.repo;
 
 import com.sachin.hostelmanagementsystem.entity.SuperEntity;
+import com.sachin.hostelmanagementsystem.repo.exception.ConstraintViolationException;
 import org.hibernate.Session;
-import org.hibernate.exception.ConstraintViolationException;
 
 import java.util.List;
 import java.util.Optional;

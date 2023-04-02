@@ -53,7 +53,7 @@
             <Font size="14.0" />
          </font>
       </TextField>
-      <Button fx:id="btnUpdate" layoutX="512.0" layoutY="497.0" mnemonicParsing="false" stylesheets="@../assets/css/main.css" text="Update">
+      <Button fx:id="btnUpdate" layoutX="512.0" layoutY="497.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" stylesheets="@../assets/css/main.css" text="Update">
          <font>
             <Font size="16.0" />
          </font>

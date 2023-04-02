@@ -1,6 +1,6 @@
 package com.sachin.hostelmanagementsystem.repo.exception;
 
-public class ConstraintViolationException extends RuntimeException{
+public class ConstraintViolationException extends Exception{
 
     public ConstraintViolationException() {
     }

@@ -4,8 +4,10 @@ import com.sachin.hostelmanagementsystem.dto.StudentDTO;
 import com.sachin.hostelmanagementsystem.service.ServiceFactory;
 import com.sachin.hostelmanagementsystem.service.ServiceType;
 import com.sachin.hostelmanagementsystem.service.custom.StudentService;
+import com.sachin.hostelmanagementsystem.service.exception.UpdateFailedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -57,8 +59,7 @@ public class StudentFormController {
     @FXML
     private TextField txtAddress;
 
-    @FXML
-    private Button btnUpdate;
+    private StudentDTO selectedStudentDTO;
 
     @FXML
     public void initialize() {
@@ -96,12 +97,35 @@ public class StudentFormController {
     @FXML
     public void tblStudentsOnClick(MouseEvent mouseEvent) {
         TableView.TableViewSelectionModel<StudentDTO> selectionModel = tblStudents.getSelectionModel();
-        StudentDTO dto = selectionModel.getSelectedItem();
-        txtName.setText(dto.getName());
-        txtAddress.setText(dto.getAddress());
-        txtContact_no.setText(dto.getContact_no());
-        Date dob = dto.getDob();
+        if (selectionModel.getSelectedItem() == null) return;
+        selectedStudentDTO = selectionModel.getSelectedItem();
+        txtName.setText(selectedStudentDTO.getName());
+        txtAddress.setText(selectedStudentDTO.getAddress());
+        txtContact_no.setText(selectedStudentDTO.getContact_no());
+        Date dob = selectedStudentDTO.getDob();
         LocalDate localDate = dob.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         dtDob.setValue(localDate);
+    }
+
+    @FXML
+    public void btnUpdateOnAction(ActionEvent actionEvent) {
+        StudentDTO dto = selectedStudentDTO;
+        String name = txtName.getText();
+        String address = txtAddress.getText();
+        String contactNo = txtContact_no.getText();
+        LocalDate localDate = dtDob.getValue();
+        Date dob = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        dto.setName(name);
+        dto.setAddress(address);
+        dto.setContact_no(contactNo);
+        dto.setDob(dob);
+        try {
+            studentService.update(dto);
+            new Alert(Alert.AlertType.CONFIRMATION, dto.getStudent_id() + " Successfully updated").show();
+            loadStudents();
+            tblStudents.refresh();
+        } catch (UpdateFailedException e) {
+            new Alert(Alert.AlertType.ERROR, dto.getStudent_id() + " Failed to update").show();
+        }
     }
 }

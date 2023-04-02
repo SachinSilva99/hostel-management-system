@@ -66,7 +66,7 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public ReservationDTO getReservationDTO(String res_id) {
+    public ReservationDTO getReservationDTO(String res_id) throws NotFoundException {
         Session session = FactoryConfiguration.getInstance().getSession();
 
         Optional<Reservation> byPk = reservationRepo.findByPk(res_id, session);
@@ -86,7 +86,7 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public ReservationDTO update(String selectedItem, STATUS status) throws NotFoundException {
+    public ReservationDTO update(String selectedItem, STATUS status) throws NotFoundException, ReservationFailedException {
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
         try {
