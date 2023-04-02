@@ -12,7 +12,7 @@ import java.net.URL;
 
 public class AppInitializer extends Application {
     public static void main(String[] args) {
-     //   Session session = FactoryConfiguration.getInstance().getSession();
+         Session session = FactoryConfiguration.getInstance().getSession();
         launch(args);
     }
     @Override

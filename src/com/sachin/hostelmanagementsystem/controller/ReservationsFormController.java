@@ -191,7 +191,7 @@ public class ReservationsFormController {
         cmbGender.getSelectionModel().clearSelection();
         cmbRoomId.getSelectionModel().clearSelection();
         cmbKeyMoney.getSelectionModel().clearSelection();
-        cmbRoomType.getSelectionModel().getSelectedItem();
+        cmbRoomType.getSelectionModel().clearSelection();
         lblRoomPrice.setText("");
         lblAvailableRoomsCount.setText("");
     }

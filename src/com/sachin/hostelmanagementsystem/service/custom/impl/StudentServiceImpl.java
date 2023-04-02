@@ -1,6 +1,5 @@
 package com.sachin.hostelmanagementsystem.service.custom.impl;
 
-import com.sachin.hostelmanagementsystem.dto.ReservationDTO;
 import com.sachin.hostelmanagementsystem.dto.StudentDTO;
 import com.sachin.hostelmanagementsystem.entity.Reservation;
 import com.sachin.hostelmanagementsystem.entity.Student;
@@ -9,7 +8,6 @@ import com.sachin.hostelmanagementsystem.repo.RepoType;
 import com.sachin.hostelmanagementsystem.repo.custom.StudentRepo;
 import com.sachin.hostelmanagementsystem.repo.exception.ConstraintViolationException;
 import com.sachin.hostelmanagementsystem.service.custom.StudentService;
-import com.sachin.hostelmanagementsystem.service.exception.NotFoundException;
 import com.sachin.hostelmanagementsystem.service.exception.UpdateFailedException;
 import com.sachin.hostelmanagementsystem.util.FactoryConfiguration;
 import com.sachin.hostelmanagementsystem.util.Mapper;
