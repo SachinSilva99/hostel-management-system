@@ -17,12 +17,17 @@
 
 /*combobox---------------------*/
 .combo-box {
+    -fx-selection-bar-text: red;
     -fx-background-color: #161A39;
     -fx-prompt-text-fill: white;
 }
 
-.combo-box .list-view {
+.combo-box .list-view:selected {
     -fx-background-color: #161A39;
+}
+.combo-box .list-cell:selected {
+    -fx-background-color: #161A39;
+    -fx-text-fill: white;
 }
 
 
@@ -65,5 +70,7 @@
 }
 /*custom buttons---------------------*/
 .text-field{
+    -fx-text-fill: #c1c5d7;
+
     -fx-background-color:#161A39 ;
 }

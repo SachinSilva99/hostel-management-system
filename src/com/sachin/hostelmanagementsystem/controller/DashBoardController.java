@@ -89,8 +89,13 @@ public class DashBoardController {
 
     @FXML
     void btnAcceptOnAction(ActionEvent event) {
+        String res_id = cmbPendingReservations.getSelectionModel().getSelectedItem();
+        if(res_id==null){
+            new Alert(Alert.AlertType.ERROR, "Select a reservation first").show();
+            return;
+        }
         try {
-            reservationService.update(cmbPendingReservations.getSelectionModel().getSelectedItem(), STATUS.ACCEPTED);
+            reservationService.update(res_id, STATUS.ACCEPTED);
             new Alert(Alert.AlertType.CONFIRMATION, "Accepted Successfully").show();
             clearFields();
             cmbPendingReservations.getSelectionModel().clearSelection();
@@ -103,8 +108,13 @@ public class DashBoardController {
 
     @FXML
     void btnCancelOnAction(ActionEvent event) {
+        String res_id = cmbPendingReservations.getSelectionModel().getSelectedItem();
+        if(res_id==null){
+            new Alert(Alert.AlertType.ERROR, "Select a reservation first").show();
+            return;
+        }
         try {
-            reservationService.update(cmbPendingReservations.getSelectionModel().getSelectedItem(), STATUS.CANCELLED);
+            reservationService.update(res_id, STATUS.CANCELLED);
             new Alert(Alert.AlertType.CONFIRMATION, "Cancelled Successfully").show();
             clearFields();
             cmbPendingReservations.getSelectionModel().clearSelection();
@@ -129,15 +139,15 @@ public class DashBoardController {
             } catch (Exception e) {
                 new Alert(Alert.AlertType.ERROR, res_id + " did not complete").show();
             }
-
+            return;
         }
+        new Alert(Alert.AlertType.ERROR,  "Select a Reservation First").show();
     }
 
     @FXML
     void cmbOnGoingReservationsOnAction(ActionEvent event) {
         String resId = cmbOnGoingReservations.getSelectionModel().getSelectedItem();
         if (resId == null) return;
-
         ReservationDTO dto = reservationService.getReservation(resId);
         lblReservationIdO.setText(dto.getRes_id());
         lblRoomTypeO.setText(String.valueOf(roomService.getRoom(dto.getRoomTypeId()).getRoomType()));
