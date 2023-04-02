@@ -90,7 +90,7 @@ public class DashBoardController {
     @FXML
     void btnAcceptOnAction(ActionEvent event) {
         String res_id = cmbPendingReservations.getSelectionModel().getSelectedItem();
-        if(res_id==null){
+        if (res_id == null) {
             new Alert(Alert.AlertType.ERROR, "Select a reservation first").show();
             return;
         }
@@ -109,7 +109,7 @@ public class DashBoardController {
     @FXML
     void btnCancelOnAction(ActionEvent event) {
         String res_id = cmbPendingReservations.getSelectionModel().getSelectedItem();
-        if(res_id==null){
+        if (res_id == null) {
             new Alert(Alert.AlertType.ERROR, "Select a reservation first").show();
             return;
         }
@@ -122,7 +122,6 @@ public class DashBoardController {
         } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR, "Did not cancel").show();
         }
-
     }
 
     @FXML
@@ -141,7 +140,7 @@ public class DashBoardController {
             }
             return;
         }
-        new Alert(Alert.AlertType.ERROR,  "Select a Reservation First").show();
+        new Alert(Alert.AlertType.ERROR, "Select a Reservation First").show();
     }
 
     @FXML
