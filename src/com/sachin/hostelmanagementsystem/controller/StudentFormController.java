@@ -83,24 +83,36 @@ public class StudentFormController {
 
     @FXML
     public void tblStudentsOnClick(MouseEvent mouseEvent) {
+        clearFields();
+
         TableView.TableViewSelectionModel<StudentDTO> selectionModel = tblStudents.getSelectionModel();
+
         if (selectionModel.getSelectedItem() == null) return;
-        selectedStudentDTO = selectionModel.getSelectedItem();
-        txtName.setText(selectedStudentDTO.getName());
-        txtAddress.setText(selectedStudentDTO.getAddress());
-        txtContact_no.setText(selectedStudentDTO.getContact_no());
-        Date dob = selectedStudentDTO.getDob();
+        StudentDTO selectedItem = selectionModel.getSelectedItem();
+        txtName.setText(selectedItem.getName());
+        txtAddress.setText(selectedItem.getAddress());
+        txtContact_no.setText(selectedItem.getContact_no());
+        Date dob = selectedItem.getDob();
         LocalDate localDate = dob.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         dtDob.setValue(localDate);
+        validateAll();
+        selectedStudentDTO = selectionModel.getSelectedItem();
+
     }
 
     @FXML
     public void btnUpdateOnAction(ActionEvent actionEvent) {
-        StudentDTO dto = selectedStudentDTO;
-        if(selectedStudentDTO == null){
+        if (selectedStudentDTO == null) {
             new Alert(Alert.AlertType.ERROR, "Select a student first! ").show();
             return;
         }
+        StudentDTO dto = new StudentDTO();
+        dto.setStudent_id(selectedStudentDTO.getStudent_id());
+        dto.setName(selectedStudentDTO.getName());
+        dto.setAddress(selectedStudentDTO.getAddress());
+        dto.setContact_no(selectedStudentDTO.getContact_no());
+        dto.setDob(selectedStudentDTO.getDob());
+
         try {
             String name = txtName.getText();
             String address = txtAddress.getText();
@@ -111,7 +123,9 @@ public class StudentFormController {
             dto.setAddress(address);
             dto.setContact_no(contactNo);
             dto.setDob(dob);
-            if(!allValidated()){
+            dto.setGender(selectedStudentDTO.getGender());
+            validateAll();
+            if (!allValidated()) {
                 new Alert(Alert.AlertType.ERROR, "fields are not validated yet").show();
                 return;
             }
@@ -122,15 +136,21 @@ public class StudentFormController {
             clearFields();
         } catch (UpdateFailedException e) {
             new Alert(Alert.AlertType.ERROR, dto.getStudent_id() + " Failed to update").show();
-        }catch (NotFoundException e){
+        } catch (NotFoundException e) {
             new Alert(Alert.AlertType.ERROR, dto.getStudent_id() + " not found").show();
-        } catch (Exception e){
+        } catch (Exception e) {
+            e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Check the fields again!").show();
         }
     }
 
     @FXML
     void dtDobOnAction(ActionEvent event) {
+        validateDob();
+
+    }
+
+    private void validateDob() {
         dtDob.getEditor().setStyle("-fx-text-fill: #1b9a1b;");
         LocalDate selectedDate = dtDob.getValue();
         if (dtDob.getValue() == null) return;
@@ -142,11 +162,14 @@ public class StudentFormController {
         } else {
             dtDob.getEditor().setStyle("-fx-text-fill: red;");
         }
-
     }
 
     @FXML
     void txtAddressOnKeyReleased(KeyEvent event) {
+        validateAddress();
+    }
+
+    private void validateAddress() {
         txtAddress.setStyle("-fx-border-color: none;");
         boolean match = validation.match(txtAddress.getText(), Validates.ADDRESS);
         if (match) {
@@ -158,6 +181,10 @@ public class StudentFormController {
 
     @FXML
     void txtContact_noOnKeyReleased(KeyEvent event) {
+        validateContact();
+    }
+
+    private void validateContact() {
         txtContact_no.setStyle("-fx-border-color: none;");
         boolean match = validation.match(txtContact_no.getText(), Validates.PHONE_NUMBER);
         if (match) {
@@ -169,6 +196,10 @@ public class StudentFormController {
 
     @FXML
     void txtNameOnKeyReleased(KeyEvent event) {
+        validateName();
+    }
+
+    private void validateName() {
         txtName.setStyle("-fx-border-color: none;");
         boolean match = validation.match(txtName.getText(), Validates.NAME);
         if (match) {
@@ -187,5 +218,12 @@ public class StudentFormController {
             return true;
         }
         return false;
+    }
+
+    private void validateAll() {
+        validateAddress();
+        validateContact();
+        validateDob();
+        validateName();
     }
 }
