@@ -3,11 +3,23 @@ package com.sachin.hostelmanagementsystem.util;
 import com.sachin.hostelmanagementsystem.dto.ReservationDTO;
 import com.sachin.hostelmanagementsystem.dto.RoomDTO;
 import com.sachin.hostelmanagementsystem.dto.StudentDTO;
+import com.sachin.hostelmanagementsystem.dto.tms.RoomTM;
 import com.sachin.hostelmanagementsystem.entity.Reservation;
 import com.sachin.hostelmanagementsystem.entity.Room;
 import com.sachin.hostelmanagementsystem.entity.Student;
+import com.sachin.hostelmanagementsystem.service.ServiceFactory;
+import com.sachin.hostelmanagementsystem.service.ServiceType;
+import com.sachin.hostelmanagementsystem.service.SuperService;
+import com.sachin.hostelmanagementsystem.service.custom.RoomService;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 public class Mapper {
+
     public Student toStudent(StudentDTO dto) {
         return new Student(
                 dto.getStudent_id(),
@@ -65,4 +77,5 @@ public class Mapper {
                 toStudentDto(reservation.getStudent())
         );
     }
+
 }

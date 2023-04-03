@@ -21,6 +21,7 @@ public class MainFormController {
 
     @FXML
     public void btnRoomsOnAction(ActionEvent actionEvent)  {
+        Navigation.navigate(Route.ROOM, subAnchorPane);
 
     }
 

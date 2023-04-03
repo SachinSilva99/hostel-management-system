@@ -4,10 +4,7 @@ import com.sachin.hostelmanagementsystem.dto.RoomDTO;
 import com.sachin.hostelmanagementsystem.entity.Room;
 import com.sachin.hostelmanagementsystem.entity.constants.ROOM_TYPE;
 import com.sachin.hostelmanagementsystem.service.SuperService;
-import com.sachin.hostelmanagementsystem.service.exception.AlreadyExists;
-import com.sachin.hostelmanagementsystem.service.exception.NotFoundException;
-import com.sachin.hostelmanagementsystem.service.exception.SavingFailedException;
-import com.sachin.hostelmanagementsystem.service.exception.UpdateFailedException;
+import com.sachin.hostelmanagementsystem.service.exception.*;
 import org.hibernate.Session;
 
 import java.util.List;
@@ -22,4 +19,5 @@ public interface RoomService extends SuperService {
     List<String> getRoomIds(String roomType);
     RoomDTO getRoom(String roomId)throws NotFoundException;
 
+    void delete(RoomDTO selectedRoom) throws InUseException;
 }

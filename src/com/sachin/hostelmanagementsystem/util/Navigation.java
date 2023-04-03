@@ -28,6 +28,10 @@ public class Navigation {
                 window.setTitle("Student");
                 initUI("StudentForm.fxml");
                 break;
+            case ROOM:
+                window.setTitle("Room");
+                initUI("RoomsForm.fxml");
+                break;
             default:
                 new Alert(Alert.AlertType.ERROR, "Not suitable UI found!").show();
         }

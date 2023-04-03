@@ -6,11 +6,9 @@ import com.sachin.hostelmanagementsystem.entity.constants.ROOM_TYPE;
 import com.sachin.hostelmanagementsystem.repo.RepoFactory;
 import com.sachin.hostelmanagementsystem.repo.RepoType;
 import com.sachin.hostelmanagementsystem.repo.custom.RoomRepo;
+import com.sachin.hostelmanagementsystem.repo.exception.ConstraintViolationException;
 import com.sachin.hostelmanagementsystem.service.custom.RoomService;
-import com.sachin.hostelmanagementsystem.service.exception.AlreadyExists;
-import com.sachin.hostelmanagementsystem.service.exception.NotFoundException;
-import com.sachin.hostelmanagementsystem.service.exception.SavingFailedException;
-import com.sachin.hostelmanagementsystem.service.exception.UpdateFailedException;
+import com.sachin.hostelmanagementsystem.service.exception.*;
 import com.sachin.hostelmanagementsystem.util.FactoryConfiguration;
 import com.sachin.hostelmanagementsystem.util.Mapper;
 import org.hibernate.Session;
@@ -130,5 +128,20 @@ public class RoomServiceImpl implements RoomService {
             throw new NotFoundException(roomId + " Room not found");
         }
         return mapper.toRoomDto(byPk.get());
+    }
+
+    @Override
+    public void delete(RoomDTO selectedRoom) throws InUseException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            roomRepo.delete(mapper.toRoom(selectedRoom), session);
+            transaction.commit();
+        } catch (ConstraintViolationException e) {
+            transaction.rollback();
+            throw new InUseException(e);
+        } finally {
+            session.close();
+        }
     }
 }
