@@ -57,7 +57,7 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <ImageView fitHeight="30.0" fitWidth="27.0" layoutX="57.0" layoutY="705.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="30.0" fitWidth="27.0" layoutX="57.0" layoutY="705.0" onMouseClicked="#logoutOnClick" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/icons/logout.png" />
          </image>
@@ -92,7 +92,7 @@
             <Image url="@../assets/icons/icons8-automatic-50.png" />
          </image>
       </ImageView>
-      <Label layoutX="97.0" layoutY="701.0" text="Logout" textFill="#fc5b5b">
+      <Label layoutX="97.0" layoutY="701.0" onMouseClicked="#logoutOnClick" text="Logout" textFill="#fc5b5b">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
