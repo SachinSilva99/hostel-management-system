@@ -166,64 +166,49 @@ public class StudentFormController {
 
     @FXML
     void txtAddressOnKeyReleased(KeyEvent event) {
-        validateAddress();
-    }
-
-    private void validateAddress() {
-        txtAddress.setStyle("-fx-border-color: none;");
-        boolean match = validation.match(txtAddress.getText(), Validates.ADDRESS);
-        if (match) {
-            txtAddress.setStyle("-fx-border-color: none;");
-            return;
-        }
-        txtAddress.setStyle("-fx-border-color: #fc6161;");
+        setValidates(txtAddress, Validates.ADDRESS);
     }
 
     @FXML
     void txtContact_noOnKeyReleased(KeyEvent event) {
-        validateContact();
-    }
-
-    private void validateContact() {
-        txtContact_no.setStyle("-fx-border-color: none;");
-        boolean match = validation.match(txtContact_no.getText(), Validates.PHONE_NUMBER);
-        if (match) {
-            txtContact_no.setStyle("-fx-border-color: none;");
-            return;
-        }
-        txtContact_no.setStyle("-fx-border-color: #fc6161;");
+        setValidates(txtContact_no, Validates.PHONE_NUMBER);
     }
 
     @FXML
     void txtNameOnKeyReleased(KeyEvent event) {
-        validateName();
-    }
-
-    private void validateName() {
-        txtName.setStyle("-fx-border-color: none;");
-        boolean match = validation.match(txtName.getText(), Validates.NAME);
-        if (match) {
-            txtName.setStyle("-fx-border-color: none;");
-            return;
-        }
-        txtName.setStyle("-fx-border-color: #fc6161;");
+        setValidates(txtName,Validates.NAME);
     }
 
     private boolean allValidated() {
         boolean isAddressValid = validation.match(txtAddress.getText(), Validates.ADDRESS);
         boolean isContactNoValid = validation.match(txtContact_no.getText(), Validates.PHONE_NUMBER);
         boolean isNameValid = validation.match(txtName.getText(), Validates.NAME);
+        boolean isAgeValid = isAgeValid();
+        return isAddressValid && isContactNoValid && isNameValid && isAgeValid;
+    }
 
-        if (isAddressValid && isContactNoValid && isNameValid) {
-            return true;
-        }
-        return false;
+    private boolean isAgeValid() {
+        LocalDate selectedDate = dtDob.getValue();
+        if (dtDob.getValue() == null) return false;
+        LocalDate today = LocalDate.now();
+        int age = Period.between(selectedDate, today).getYears();
+        return age >= 18;
     }
 
     private void validateAll() {
-        validateAddress();
-        validateContact();
+        setValidates(txtAddress, Validates.ADDRESS);
+        setValidates(txtContact_no, Validates.PHONE_NUMBER);
         validateDob();
-        validateName();
+        setValidates(txtName,Validates.NAME);
+    }
+
+    private void setValidates(TextField textField, Validates validates) {
+        textField.setStyle("-fx-border-color: none;");
+        boolean match = validation.match(textField.getText(), validates);
+        if (match) {
+            textField.setStyle("-fx-border-color: none;");
+            return;
+        }
+        textField.setStyle("-fx-border-color: #fc6161;");
     }
 }

@@ -105,8 +105,6 @@ public class DashBoardController {
         } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR, "Did not accept").show();
         }
-
-
     }
 
     @FXML

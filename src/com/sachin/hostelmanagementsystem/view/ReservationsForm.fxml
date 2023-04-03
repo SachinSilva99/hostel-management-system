@@ -10,19 +10,19 @@
 
 <AnchorPane prefHeight="604.0" prefWidth="887.0" style="-fx-background-color: #000714;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sachin.hostelmanagementsystem.controller.ReservationsFormController">
    <children>
-      <TextField fx:id="txtStudentId" layoutX="61.0" layoutY="90.0" prefHeight="35.0" prefWidth="255.0" style="-fx-background-radius: 10px;" stylesheets="@../assets/css/main.css">
+      <TextField fx:id="txtStudentId" layoutX="61.0" layoutY="90.0" onKeyReleased="#txtStudentIdOnReleased" prefHeight="35.0" prefWidth="255.0" style="-fx-background-radius: 10px;" stylesheets="@../assets/css/main.css">
          <font>
             <Font size="16.0" />
          </font></TextField>
-      <TextField fx:id="txtContact" layoutX="420.0" layoutY="183.0" prefHeight="35.0" prefWidth="255.0" style="-fx-background-radius: 10px;" stylesheets="@../assets/css/main.css">
+      <TextField fx:id="txtContact" layoutX="420.0" layoutY="183.0" onKeyReleased="#txtContactOnKeyReleased" prefHeight="35.0" prefWidth="255.0" style="-fx-background-radius: 10px;" stylesheets="@../assets/css/main.css">
          <font>
             <Font size="16.0" />
          </font></TextField>
-      <TextField fx:id="txtName" layoutX="420.0" layoutY="90.0" prefHeight="35.0" prefWidth="255.0" style="-fx-background-radius: 10px;" stylesheets="@../assets/css/main.css">
+      <TextField fx:id="txtName" layoutX="420.0" layoutY="90.0" onKeyReleased="#txtNameOnKeyReleased" prefHeight="35.0" prefWidth="255.0" style="-fx-background-radius: 10px;" stylesheets="@../assets/css/main.css">
          <font>
             <Font size="16.0" />
          </font></TextField>
-      <TextField fx:id="txtAddress" layoutX="61.0" layoutY="183.0" prefHeight="35.0" prefWidth="255.0" style="-fx-background-radius: 10px;" stylesheets="@../assets/css/main.css">
+      <TextField fx:id="txtAddress" layoutX="61.0" layoutY="183.0" onKeyReleased="#txtAddressOnKeyReleased" prefHeight="35.0" prefWidth="255.0" style="-fx-background-radius: 10px;" stylesheets="@../assets/css/main.css">
          <font>
             <Font size="16.0" />
          </font></TextField>
@@ -100,7 +100,7 @@
          </font>
       </Label>
       <ComboBox fx:id="cmbRoomId" layoutX="525.0" layoutY="366.0" onAction="#cmbRoomIdOnAction" prefWidth="150.0" stylesheets="@../assets/css/main.css" />
-      <DatePicker fx:id="dtDob" layoutX="62.0" layoutY="239.0" promptText="DOB" stylesheets="@../assets/css/main.css" />
+      <DatePicker fx:id="dtDob" layoutX="62.0" layoutY="239.0" onAction="#dtDobOnAction" promptText="DOB" stylesheets="@../assets/css/main.css" />
       <Label layoutX="699.0" layoutY="26.0" prefHeight="25.0" prefWidth="55.0" text="Res_Id" textFill="WHITE">
          <font>
             <Font size="16.0" />

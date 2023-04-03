@@ -5,6 +5,8 @@ import com.sachin.hostelmanagementsystem.dto.RoomDTO;
 import com.sachin.hostelmanagementsystem.dto.StudentDTO;
 import com.sachin.hostelmanagementsystem.entity.constants.GENDER;
 import com.sachin.hostelmanagementsystem.entity.constants.STATUS;
+import com.sachin.hostelmanagementsystem.regex.Validates;
+import com.sachin.hostelmanagementsystem.regex.Validation;
 import com.sachin.hostelmanagementsystem.service.ServiceFactory;
 import com.sachin.hostelmanagementsystem.service.ServiceType;
 import com.sachin.hostelmanagementsystem.service.custom.ReservationService;
@@ -16,14 +18,18 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class ReservationsFormController {
+    private final Validation validation = new Validation();
+
     @FXML
     public ComboBox<String> cmbRoomId;
     @FXML
@@ -183,6 +189,51 @@ public class ReservationsFormController {
         }
     }
 
+    @FXML
+    void dtDobOnAction(ActionEvent event) {
+        validateDob();
+    }
+
+    @FXML
+    void txtAddressOnKeyReleased(KeyEvent event) {
+        setValidates(txtAddress, Validates.ADDRESS);
+    }
+
+    @FXML
+    void txtNameOnKeyReleased(KeyEvent event) {
+        setValidates(txtName, Validates.NAME);
+
+    }
+
+    @FXML
+    void txtStudentIdOnReleased(KeyEvent event) {
+        setValidates(txtStudentId, Validates.STUDENT_ID);
+    }
+
+    private void validateDob() {
+        dtDob.getEditor().setStyle("-fx-text-fill: #1b9a1b;");
+        LocalDate selectedDate = dtDob.getValue();
+        if (dtDob.getValue() == null) return;
+        LocalDate today = LocalDate.now();
+        int age = Period.between(selectedDate, today).getYears();
+
+        if (age >= 18) {
+            dtDob.getEditor().setStyle("-fx-text-fill: #1b9a1b;");
+        } else {
+            dtDob.getEditor().setStyle("-fx-text-fill: red;");
+        }
+    }
+
+    private void setValidates(TextField textField, Validates validates) {
+        textField.setStyle("-fx-border-color: none;");
+        boolean match = validation.match(textField.getText(), validates);
+        if (match) {
+            textField.setStyle("-fx-border-color: none;");
+            return;
+        }
+        textField.setStyle("-fx-border-color: #fc6161;");
+    }
+
     private void clearAllFields() {
         dtDob.setValue(null);
         txtStudentId.clear();
@@ -208,5 +259,24 @@ public class ReservationsFormController {
             default:
                 return null;
         }
+    }
+
+    @FXML
+    public void txtContactOnKeyReleased(KeyEvent keyEvent) {
+        setValidates(txtContact, Validates.PHONE_NUMBER);
+    }
+    private boolean allValidated() {
+        boolean isAddressValid = validation.match(txtAddress.getText(), Validates.ADDRESS);
+        boolean isContactNoValid = validation.match(txtContact.getText(), Validates.PHONE_NUMBER);
+        boolean isNameValid = validation.match(txtName.getText(), Validates.NAME);
+        boolean isAgeValid = isAgeValid();
+        return isAddressValid && isContactNoValid && isNameValid && isAgeValid;
+    }
+    private boolean isAgeValid() {
+        LocalDate selectedDate = dtDob.getValue();
+        if (dtDob.getValue() == null) return false;
+        LocalDate today = LocalDate.now();
+        int age = Period.between(selectedDate, today).getYears();
+        return age >= 18;
     }
 }
