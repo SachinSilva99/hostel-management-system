@@ -8,6 +8,7 @@ import com.sachin.hostelmanagementsystem.repo.RepoType;
 import com.sachin.hostelmanagementsystem.repo.custom.StudentRepo;
 import com.sachin.hostelmanagementsystem.repo.exception.ConstraintViolationException;
 import com.sachin.hostelmanagementsystem.service.custom.StudentService;
+import com.sachin.hostelmanagementsystem.service.exception.NotFoundException;
 import com.sachin.hostelmanagementsystem.service.exception.UpdateFailedException;
 import com.sachin.hostelmanagementsystem.util.FactoryConfiguration;
 import com.sachin.hostelmanagementsystem.util.Mapper;
@@ -65,9 +66,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentDTO update(StudentDTO dto) throws UpdateFailedException {
+    public StudentDTO update(StudentDTO dto) throws UpdateFailedException, NotFoundException {
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
+        if(!studentRepo.existByPk(dto.getStudent_id(),session))throw new NotFoundException(" not found");
+        session.clear();
         try {
             Student student = studentRepo.update(mapper.toStudent(dto), session);
             transaction.commit();

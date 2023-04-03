@@ -55,13 +55,13 @@ Test {
         list.add("Sanath");
         List<String> s1 = list.stream().filter(s -> s.contains("") || s.contains("")).collect(Collectors.toList());
         System.out.println(s1);*/
-        String campusId = "ABC-12123";
-        String pattern = "^[A-Za-z]+-\\w+$";
-        if (campusId.matches(pattern)) {
-            System.out.println("Campus Id is valid");
-        } else {
-            System.out.println("Campus Id is invalid");
-        }
+        String input = "+94779672493"; // replace with your input
+        String regex = "^(?!(?:\\+947|07)7(?!1234))[07]\\d{8}$|^(?!(?:\\+947|07)71234567)[+]?947\\d{7}$";
 
+        if (input.matches(regex)) {
+            System.out.println("Valid");
+        } else {
+            System.out.println("Invalid");
+        }
     }
 }

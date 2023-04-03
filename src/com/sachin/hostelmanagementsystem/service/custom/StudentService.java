@@ -16,5 +16,5 @@ public interface StudentService extends SuperService {
 
     List<String> getReservationsForStudent(String studentId);
 
-    StudentDTO update(StudentDTO dto) throws UpdateFailedException;
+    StudentDTO update(StudentDTO dto) throws UpdateFailedException, NotFoundException;
 }

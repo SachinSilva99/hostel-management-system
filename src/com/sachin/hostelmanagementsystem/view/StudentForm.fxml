@@ -38,17 +38,17 @@
             <Image url="@../assets/icons/search.png" />
          </image>
       </ImageView>
-      <TextField fx:id="txtContact_no" layoutX="67.0" layoutY="500.0" prefHeight="25.0" prefWidth="173.0" promptText="contact_no" stylesheets="@../assets/css/main.css">
+      <TextField fx:id="txtContact_no" layoutX="67.0" layoutY="500.0" onKeyReleased="#txtContact_noOnKeyReleased" prefHeight="25.0" prefWidth="173.0" promptText="contact_no" stylesheets="@../assets/css/main.css">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtName" layoutX="67.0" layoutY="449.0" prefHeight="25.0" prefWidth="173.0" promptText="name" stylesheets="@../assets/css/main.css">
+      <TextField fx:id="txtName" layoutX="67.0" layoutY="449.0" onKeyReleased="#txtNameOnKeyReleased" prefHeight="25.0" prefWidth="173.0" promptText="name" stylesheets="@../assets/css/main.css">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtAddress" layoutX="290.0" layoutY="449.0" prefHeight="25.0" prefWidth="173.0" promptText="address" stylesheets="@../assets/css/main.css">
+      <TextField fx:id="txtAddress" layoutX="290.0" layoutY="449.0" onKeyReleased="#txtAddressOnKeyReleased" prefHeight="25.0" prefWidth="173.0" promptText="address" stylesheets="@../assets/css/main.css">
          <font>
             <Font size="14.0" />
          </font>
@@ -58,6 +58,6 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <DatePicker fx:id="dtDob" layoutX="290.0" layoutY="503.0" promptText="dob" stylesheets="@../assets/css/main.css" />
+      <DatePicker fx:id="dtDob" layoutX="290.0" layoutY="503.0" onAction="#dtDobOnAction" promptText="dob" stylesheets="@../assets/css/main.css" />
    </children>
 </AnchorPane>

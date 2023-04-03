@@ -8,9 +8,9 @@ public class Validation {
 
     private final Pattern price = Pattern.compile("^([0-9]\\d*(\\.\\d*[0-9])?|0\\.\\d*[0-9]+)|\\d+(\\.\\d*[0-9])?$");
     private final Pattern qtyPattern = Pattern.compile("^[0-9]{1,50}$");
-    private final Pattern namePattern = Pattern.compile("^[a-zA-Z]{1,50}$");
-    private final Pattern address = Pattern.compile("([a-zA-Z|0-9|\\s+]{3,})");
-    private final Pattern phoneNumberP = Pattern.compile("^[0|+94][77|76|71|70|78|74|75|][0-9]{8}$");
+    private final Pattern namePattern = Pattern.compile("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$");
+    private final Pattern address = Pattern.compile("^[a-zA-Z0-9'\\.\\-\\s\\,]+$");
+    private final Pattern phoneNumberP = Pattern.compile("^(?:\\+947|07)[0124-8](?!1234567)\\d{7}$");
     private final Pattern room_type_id = Pattern.compile("^RM-\\d{4}$");
     private final Pattern student_id = Pattern.compile("^[A-Za-z]+-\\w+$");
 
