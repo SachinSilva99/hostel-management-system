@@ -152,7 +152,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label fx:id="lblReservationIdO" prefHeight="30.0" prefWidth="69.0" text="R001" textFill="WHITE" GridPane.columnIndex="1">
+            <Label fx:id="lblReservationIdO" prefHeight="30.0" prefWidth="69.0" textFill="WHITE" GridPane.columnIndex="1">
                <font>
                   <Font size="20.0" />
                </font>
@@ -162,7 +162,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label fx:id="lblRoomTypeO" layoutX="188.0" layoutY="6.0" prefHeight="30.0" prefWidth="69.0" text="AC" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label fx:id="lblRoomTypeO" layoutX="188.0" layoutY="6.0" prefHeight="30.0" prefWidth="69.0" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font size="20.0" />
                </font>
@@ -172,7 +172,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label fx:id="lblKeyMoneyO" text="2000" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Label fx:id="lblKeyMoneyO" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font size="20.0" />
                </font>
@@ -182,7 +182,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label fx:id="lblDateO" prefHeight="30.0" prefWidth="131.0" text="2023/02/23" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Label fx:id="lblDateO" prefHeight="30.0" prefWidth="131.0" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font size="20.0" />
                </font>
@@ -197,7 +197,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label fx:id="lblStudentIdO" layoutX="10.0" layoutY="75.0" prefHeight="30.0" prefWidth="228.0" text="S001" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <Label fx:id="lblStudentIdO" layoutX="10.0" layoutY="75.0" prefHeight="30.0" prefWidth="228.0" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
                   <Font size="20.0" />
                </font>

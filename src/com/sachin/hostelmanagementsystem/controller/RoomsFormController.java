@@ -144,6 +144,7 @@ public class RoomsFormController {
                     roomService.delete(room1);
                     new Alert(Alert.AlertType.INFORMATION, roomTypeId + " deleted").show();
                     loadRoomsToTable();
+                    clearFields();
                 } catch (NotFoundException | InUseException e) {
                     new Alert(Alert.AlertType.ERROR, roomTypeId + "in Use").show();
                 }
