@@ -28,7 +28,7 @@ public class SettingsFormController {
     private TextField txtPassword;
 
     public void initialize() throws NotFoundException {
-        lblUserId.setText(String.valueOf(userService.getUser(2).getId()));
+        lblUserId.setText(String.valueOf(userService.getUser(1).getId()));
     }
 
     @FXML
