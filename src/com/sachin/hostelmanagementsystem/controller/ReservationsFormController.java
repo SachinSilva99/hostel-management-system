@@ -56,8 +56,6 @@ public class ReservationsFormController {
     @FXML
     private Label lblRoomPrice;
 
-    @FXML
-    private Button btnProceed;
 
     private final ReservationService reservationService = ServiceFactory.getInstance().getService(ServiceType.RESERVATION);
     private final RoomService roomService = ServiceFactory.getInstance().getService(ServiceType.ROOM);
@@ -143,7 +141,7 @@ public class ReservationsFormController {
 
         //Loading key money to selected room id
         if (availableRoomsCountForId != 0) {
-            RoomDTO roomDTO = null;
+            RoomDTO roomDTO;
             try {
                 roomDTO = roomService.getRoom(roomId);
             } catch (NotFoundException e) {
@@ -161,7 +159,9 @@ public class ReservationsFormController {
         String studentId = txtStudentId.getText();
         String selectedItem = cmbGender.getSelectionModel().getSelectedItem();
         String roomId = cmbRoomId.getSelectionModel().getSelectedItem();
-        STATUS status = cmbKeyMoney.getSelectionModel().getSelectedItem().equals("YES") ? STATUS.ACCEPTED : STATUS.PENDING;
+        STATUS status = cmbKeyMoney
+                .getSelectionModel().getSelectedItem()
+                .equals("YES") ? STATUS.ACCEPTED : STATUS.PENDING;
         LocalDate localDate = dtDob.getValue();
         Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
