@@ -77,7 +77,7 @@
             <Image url="@../assets/icons/students.png" />
          </image>
       </ImageView>
-      <Button alignment="CENTER" layoutX="96.0" layoutY="534.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="253.0" stylesheets="@../assets/css/main.css" text="Settings" textFill="WHITE">
+      <Button alignment="CENTER" layoutX="96.0" layoutY="534.0" mnemonicParsing="false" onAction="#btnSettingsOnAction" prefHeight="54.0" prefWidth="253.0" stylesheets="@../assets/css/main.css" text="Settings" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>

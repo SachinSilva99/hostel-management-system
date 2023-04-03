@@ -20,22 +20,27 @@ public class MainFormController {
 
 
     @FXML
-    public void btnRoomsOnAction(ActionEvent actionEvent)  {
+    public void btnRoomsOnAction(ActionEvent actionEvent) {
         Navigation.navigate(Route.ROOM, subAnchorPane);
 
     }
 
-    public void btnPlaceReservationsOnAction(ActionEvent actionEvent)  {
+    public void btnPlaceReservationsOnAction(ActionEvent actionEvent) {
         Navigation.navigate(Route.RESERVATION, subAnchorPane);
     }
 
     @FXML
-    public void btnDashboardOnAction(ActionEvent actionEvent)  {
+    public void btnDashboardOnAction(ActionEvent actionEvent) {
         Navigation.navigate(Route.DASHBOARD, subAnchorPane);
     }
 
     @FXML
     public void btnStudentOnAction(ActionEvent actionEvent) {
         Navigation.navigate(Route.STUDENT, subAnchorPane);
+    }
+
+    @FXML
+    public void btnSettingsOnAction(ActionEvent actionEvent) {
+        Navigation.navigate(Route.SETTINGS, subAnchorPane);
     }
 }

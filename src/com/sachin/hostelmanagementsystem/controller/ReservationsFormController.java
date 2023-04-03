@@ -50,7 +50,6 @@ public class ReservationsFormController {
     private ComboBox<String> cmbRoomType;
 
 
-
     @FXML
     private ComboBox<String> cmbKeyMoney;
 
@@ -155,32 +154,31 @@ public class ReservationsFormController {
 
     public void btnProceedOnAction(ActionEvent actionEvent) {
         try {
-        String studentName = txtName.getText();
-        String address = txtAddress.getText();
-        String contact = txtContact.getText();
-        String studentId = txtStudentId.getText();
-        String selectedItem = cmbGender.getSelectionModel().getSelectedItem();
-        String roomId = cmbRoomId.getSelectionModel().getSelectedItem();
-        STATUS status = cmbKeyMoney
-                .getSelectionModel().getSelectedItem()
-                .equals("YES") ? STATUS.ACCEPTED : STATUS.PENDING;
-        LocalDate localDate = dtDob.getValue();
-        Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            String studentName = txtName.getText();
+            String address = txtAddress.getText();
+            String contact = txtContact.getText();
+            String studentId = txtStudentId.getText();
+            String selectedItem = cmbGender.getSelectionModel().getSelectedItem();
+            String roomId = cmbRoomId.getSelectionModel().getSelectedItem();
+            STATUS status = cmbKeyMoney
+                    .getSelectionModel().getSelectedItem()
+                    .equals("YES") ? STATUS.ACCEPTED : STATUS.PENDING;
+            LocalDate localDate = dtDob.getValue();
+            Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-        StudentDTO studentDTO = new StudentDTO(
-                studentId, studentName, address, contact, date, getGender(selectedItem)
-        );
-        ReservationDTO reservationDTO = new ReservationDTO(
-                reservationService.generateResId(lblResId.getText()), new Date(), status, roomId,studentDTO
-        );
-
+            StudentDTO studentDTO = new StudentDTO(
+                    studentId, studentName, address, contact, date, getGender(selectedItem)
+            );
+            ReservationDTO reservationDTO = new ReservationDTO(
+                    reservationService.generateResId(lblResId.getText()), new Date(), status, roomId, studentDTO
+            );
             reservationService.proceedReservation(reservationDTO);
             clearAllFields();
             loadLastRes_id(lblResId.getText());
             new Alert(Alert.AlertType.CONFIRMATION, "Reservation Successful").show();
         } catch (ReservationFailedException e) {
             new Alert(Alert.AlertType.ERROR, "Reservation Failed").show();
-        }catch (Exception e){
+        } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR, "Check the details again").show();
         }
     }

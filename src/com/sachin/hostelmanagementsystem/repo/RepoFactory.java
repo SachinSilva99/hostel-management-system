@@ -3,6 +3,7 @@ package com.sachin.hostelmanagementsystem.repo;
 import com.sachin.hostelmanagementsystem.repo.custom.impl.ReservationRepoImpl;
 import com.sachin.hostelmanagementsystem.repo.custom.impl.RoomRepoImpl;
 import com.sachin.hostelmanagementsystem.repo.custom.impl.StudentRepoImpl;
+import com.sachin.hostelmanagementsystem.repo.custom.impl.UserRepoImpl;
 
 public class RepoFactory {
     private static RepoFactory repoFactory;
@@ -18,6 +19,8 @@ public class RepoFactory {
                 return (T) new StudentRepoImpl();
             case RESERVATION:
                 return (T) new ReservationRepoImpl();
+            case USER:
+                return (T) new UserRepoImpl();
             default:
                 return null;
         }

@@ -1,11 +1,12 @@
 package com.sachin.hostelmanagementsystem;
 
 import com.sachin.hostelmanagementsystem.entity.Room;
+import com.sachin.hostelmanagementsystem.entity.User;
 import com.sachin.hostelmanagementsystem.entity.constants.ROOM_TYPE;
 import com.sachin.hostelmanagementsystem.repo.RepoFactory;
 import com.sachin.hostelmanagementsystem.repo.RepoType;
-import com.sachin.hostelmanagementsystem.repo.SuperRepo;
 import com.sachin.hostelmanagementsystem.repo.custom.RoomRepo;
+import com.sachin.hostelmanagementsystem.repo.custom.UserRepo;
 import com.sachin.hostelmanagementsystem.util.FactoryConfiguration;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -39,6 +40,13 @@ public class AppInitializer extends Application {
     private static void initializeDb() throws Exception {
         Session session = FactoryConfiguration.getInstance().getSession();
         RoomRepo roomRepo = RepoFactory.getInstance().getRepo(RepoType.ROOM);
+        UserRepo userRepo = RepoFactory.getInstance().getRepo(RepoType.USER);
+        if (userRepo.count(session) == 0) {
+            Transaction transaction = session.beginTransaction();
+            User user = new User(1,"user", "1234");
+            userRepo.save(user, session);
+            transaction.commit();
+        }
         long count = roomRepo.count(session);
         if (count != 0) return;
         Room room1 = new Room("RM-1324", ROOM_TYPE.NON_AC, 3100.0, 35);

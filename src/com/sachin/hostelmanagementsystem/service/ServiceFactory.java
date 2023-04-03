@@ -3,6 +3,7 @@ package com.sachin.hostelmanagementsystem.service;
 import com.sachin.hostelmanagementsystem.service.custom.impl.ReservationServiceImpl;
 import com.sachin.hostelmanagementsystem.service.custom.impl.RoomServiceImpl;
 import com.sachin.hostelmanagementsystem.service.custom.impl.StudentServiceImpl;
+import com.sachin.hostelmanagementsystem.service.custom.impl.UserServiceImpl;
 
 public class ServiceFactory {
     private static ServiceFactory serviceFactory;
@@ -22,6 +23,8 @@ public class ServiceFactory {
                 return (T) new RoomServiceImpl();
             case STUDENT:
                 return (T) new StudentServiceImpl();
+            case USER:
+                return (T) new UserServiceImpl();
             default:
                 return null;
         }

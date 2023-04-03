@@ -3,21 +3,13 @@ package com.sachin.hostelmanagementsystem.util;
 import com.sachin.hostelmanagementsystem.dto.ReservationDTO;
 import com.sachin.hostelmanagementsystem.dto.RoomDTO;
 import com.sachin.hostelmanagementsystem.dto.StudentDTO;
-import com.sachin.hostelmanagementsystem.dto.tms.RoomTM;
+import com.sachin.hostelmanagementsystem.dto.UserDto;
 import com.sachin.hostelmanagementsystem.entity.Reservation;
 import com.sachin.hostelmanagementsystem.entity.Room;
 import com.sachin.hostelmanagementsystem.entity.Student;
-import com.sachin.hostelmanagementsystem.service.ServiceFactory;
-import com.sachin.hostelmanagementsystem.service.ServiceType;
-import com.sachin.hostelmanagementsystem.service.SuperService;
-import com.sachin.hostelmanagementsystem.service.custom.RoomService;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import com.sachin.hostelmanagementsystem.entity.User;
 
+/* Author: Sachin Silva */
 public class Mapper {
 
     public Student toStudent(StudentDTO dto) {
@@ -76,6 +68,12 @@ public class Mapper {
                 reservation.getRoom().getRoom_type_id(),
                 toStudentDto(reservation.getStudent())
         );
+    }
+    public UserDto toUserDto(User user){
+        return new UserDto(user.getId(), user.getUsername(), user.getPassword());
+    }
+    public User toUser(UserDto userDto){
+        return new User(userDto.getId(), userDto.getUsername(), userDto.getPassword());
     }
 
 }

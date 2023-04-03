@@ -1,7 +1,6 @@
 package com.sachin.hostelmanagementsystem.repo.custom.impl;
 
 import com.sachin.hostelmanagementsystem.entity.Reservation;
-import com.sachin.hostelmanagementsystem.entity.Room;
 import com.sachin.hostelmanagementsystem.entity.constants.STATUS;
 import com.sachin.hostelmanagementsystem.repo.custom.ReservationRepo;
 import com.sachin.hostelmanagementsystem.repo.exception.ConstraintViolationException;

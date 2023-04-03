@@ -18,7 +18,7 @@ public interface CrudRepo<T extends SuperEntity, ID > extends SuperRepo{
 
     Optional<T> findByPk(ID pk,Session session);
 
-    boolean existByPk(ID pk,Session session);
+    boolean existByPk(ID pk, Session session);
 
     long count(Session session) ;
 
