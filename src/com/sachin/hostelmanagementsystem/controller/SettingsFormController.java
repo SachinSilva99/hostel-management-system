@@ -30,12 +30,17 @@ public class SettingsFormController {
     public void initialize() throws NotFoundException {
         lblUserId.setText(String.valueOf(userService.getUser(2).getId()));
     }
+
     @FXML
     void btnUpdateOnAction(ActionEvent event) throws NotFoundException {
+
+        int id = Integer.parseInt(lblUserId.getText());
         String username = txtUsername.getText();
         String password = txtPassword.getText();
-        int id = Integer.parseInt(lblUserId.getText());
-        System.out.println(id);
+        if(username.isEmpty() || password.isEmpty()){
+            new Alert(Alert.AlertType.ERROR, "fill the fields first").show();
+            return;
+        }
         UserDto userDto = userService.getUser(id);
         userDto.setUsername(username);
         userDto.setPassword(password);
