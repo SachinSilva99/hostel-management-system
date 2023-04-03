@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -55,6 +56,9 @@ public class LoginFormController {
         Stage primaryStage = new Stage();
         URL resource = this.getClass().getResource("/com/sachin/hostelmanagementsystem/view/MainForm.fxml");
         Parent window = FXMLLoader.load(resource);
+        window.setStyle("-fx-background-color: #000000;");
+        primaryStage.getIcons().add(new Image("com/sachin/hostelmanagementsystem/assets/images/hostel_logo.png"));
+
         Scene scene = new Scene(window);
         primaryStage.setScene(scene);
         primaryStage.setTitle("DashBoard Form");

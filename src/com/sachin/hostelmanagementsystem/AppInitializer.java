@@ -12,6 +12,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -29,6 +30,7 @@ public class AppInitializer extends Application {
         URL resource = this.getClass().getResource("/com/sachin/hostelmanagementsystem/view/LoginForm.fxml");
         Parent window = FXMLLoader.load(resource);
         Scene scene = new Scene(window);
+        primaryStage.getIcons().add(new Image("com/sachin/hostelmanagementsystem/assets/images/hostel_logo.png"));
         primaryStage.setScene(scene);
         primaryStage.setTitle("DashBoard Form");
         primaryStage.centerOnScreen();

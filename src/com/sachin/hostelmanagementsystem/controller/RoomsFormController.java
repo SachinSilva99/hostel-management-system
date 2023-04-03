@@ -135,19 +135,16 @@ public class RoomsFormController {
 
     private RoomTM toRoomTm(RoomDTO room, Button button) {
         RoomService roomService = ServiceFactory.getInstance().getService(ServiceType.ROOM);
-        button.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                String roomTypeId = room.getRoom_type_id();
-                try {
-                    RoomDTO room1 = roomService.getRoom(roomTypeId);
-                    roomService.delete(room1);
-                    new Alert(Alert.AlertType.INFORMATION, roomTypeId + " deleted").show();
-                    loadRoomsToTable();
-                    clearFields();
-                } catch (NotFoundException | InUseException e) {
-                    new Alert(Alert.AlertType.ERROR, roomTypeId + "in Use").show();
-                }
+        button.setOnAction(event -> {
+            String roomTypeId = room.getRoom_type_id();
+            try {
+                RoomDTO room1 = roomService.getRoom(roomTypeId);
+                roomService.delete(room1);
+                new Alert(Alert.AlertType.INFORMATION, roomTypeId + " deleted").show();
+                loadRoomsToTable();
+                clearFields();
+            } catch (NotFoundException | InUseException e) {
+                new Alert(Alert.AlertType.ERROR, roomTypeId + "in Use").show();
             }
         });
         return new RoomTM(
