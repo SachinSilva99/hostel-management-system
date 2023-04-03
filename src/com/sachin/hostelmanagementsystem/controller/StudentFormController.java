@@ -30,24 +30,6 @@ public class StudentFormController {
     private TableView<StudentDTO> tblStudents;
 
     @FXML
-    private TableColumn<?, ?> col_student_id;
-
-    @FXML
-    private TableColumn<?, ?> colName;
-
-    @FXML
-    private TableColumn<?, ?> colAddress;
-
-    @FXML
-    private TableColumn<?, ?> colDOB;
-
-    @FXML
-    private TableColumn<?, ?> colGender;
-
-    @FXML
-    private TableColumn<?, ?> colContactNo;
-
-    @FXML
     private TextField txtSearch;
 
     @FXML

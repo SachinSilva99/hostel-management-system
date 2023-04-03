@@ -45,6 +45,8 @@ public class RoomServiceImpl implements RoomService {
             roomRepo.save(mapper.toRoom(roomDto), session);
             transaction.commit();
             return roomDto;
+        } catch (AlreadyExists e) {
+            throw new AlreadyExists(roomDto.getRoom_type_id() + " Room Already Exists");
         } catch (Exception e) {
             transaction.rollback();
             throw new SavingFailedException(roomDto.getRoom_type_id() + " Room failed to save");
@@ -57,11 +59,15 @@ public class RoomServiceImpl implements RoomService {
     public RoomDTO update(RoomDTO roomDTO) throws NotFoundException, UpdateFailedException {
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
+
         if (!roomRepo.existByPk(roomDTO.getRoom_type_id(), session)) {
             throw new NotFoundException(roomDTO.getRoom_type_id() + " room doesn't exist");
         }
+        session.clear();
         try {
-            roomRepo.update(mapper.toRoom(roomDTO), session);
+
+            Room room = mapper.toRoom(roomDTO);
+            roomRepo.update(room, session);
             transaction.commit();
             return roomDTO;
         } catch (Exception e) {

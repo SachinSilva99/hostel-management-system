@@ -29,6 +29,8 @@ public class RoomRepoImpl implements RoomRepo {
             session.update(room);
             return room;
         } catch (Exception e) {
+            e.printStackTrace();
+
             throw new ConstraintViolationException("Room did not update");
         }
     }

@@ -2,39 +2,44 @@ package com.sachin.hostelmanagementsystem.controller;
 
 import com.sachin.hostelmanagementsystem.dto.RoomDTO;
 import com.sachin.hostelmanagementsystem.dto.tms.RoomTM;
-import com.sachin.hostelmanagementsystem.entity.Room;
+import com.sachin.hostelmanagementsystem.entity.constants.ROOM_TYPE;
 import com.sachin.hostelmanagementsystem.service.ServiceFactory;
 import com.sachin.hostelmanagementsystem.service.ServiceType;
-import com.sachin.hostelmanagementsystem.service.SuperService;
 import com.sachin.hostelmanagementsystem.service.custom.RoomService;
-import com.sachin.hostelmanagementsystem.service.exception.InUseException;
-import com.sachin.hostelmanagementsystem.service.exception.NotFoundException;
-import com.sachin.hostelmanagementsystem.util.FactoryConfiguration;
-import com.sachin.hostelmanagementsystem.util.Mapper;
+import com.sachin.hostelmanagementsystem.service.exception.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class RoomsFormController {
     private final RoomService roomService = ServiceFactory.getInstance().getService(ServiceType.ROOM);
-    private final Mapper mapper = new Mapper();
+
+    @FXML
+    private TextField txtRoomId;
+
+    @FXML
+    private TextField txtKeyMoney;
+
+    @FXML
+    private TextField txtQty;
+
+    @FXML
+    private ComboBox<String> cmbRoomType;
     @FXML
     private TableView<RoomTM> tblRooms;
 
     public void initialize() {
         loadRoomsToTable();
+        loadRoomTypes();
     }
 
     private void loadRoomsToTable() {
@@ -51,7 +56,76 @@ public class RoomsFormController {
 
     @FXML
     void tblRoomsOnClicked(MouseEvent event) {
+        RoomTM roomTM = tblRooms.getSelectionModel().getSelectedItem();
+        txtRoomId.setText(roomTM.getRoom_type_id());
+        txtKeyMoney.setText(String.valueOf(roomTM.getKey_money()));
+        txtQty.setText(String.valueOf(roomTM.getQty()));
+        ROOM_TYPE roomType = roomTM.getRoomType();
+        cmbRoomType.getSelectionModel().select(getRoomTypeIndex(roomType));
+    }
 
+
+    @FXML
+    public void btnSaveOnAction(ActionEvent actionEvent) {
+        String roomId = null;
+
+        try {
+            roomId = txtRoomId.getText();
+            double keyMoney = Double.parseDouble(txtKeyMoney.getText());
+            int qty = Integer.parseInt(txtQty.getText());
+            String roomType = cmbRoomType.getSelectionModel().getSelectedItem();
+
+            if (roomId == null) {
+                new Alert(Alert.AlertType.ERROR, "Room Id cannot be empty").show();
+                return;
+            }
+            roomService.save(new RoomDTO(roomId, getRoomType(roomType), keyMoney, qty));
+            clearFields();
+            new Alert(Alert.AlertType.CONFIRMATION, "Room saved successfully").show();
+            loadRoomsToTable();
+
+        } catch (AlreadyExists e) {
+            new Alert(Alert.AlertType.ERROR, roomId + " already exists").show();
+        } catch (SavingFailedException e) {
+            new Alert(Alert.AlertType.ERROR, roomId + " couldn't save").show();
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "check the fields again").show();
+        }
+    }
+
+    private void clearFields() {
+        txtRoomId.clear();
+        txtQty.clear();
+        txtKeyMoney.clear();
+        cmbRoomType.getSelectionModel().clearSelection();
+    }
+
+    @FXML
+    public void btnUpdateOnActionOnAction(ActionEvent actionEvent) {
+        String roomId = null;
+
+        try {
+            roomId = txtRoomId.getText();
+            double keyMoney = Double.parseDouble(txtKeyMoney.getText());
+            int qty = Integer.parseInt(txtQty.getText());
+            String roomType = cmbRoomType.getSelectionModel().getSelectedItem();
+
+            if (roomId == null) {
+                new Alert(Alert.AlertType.ERROR, "Room Id cannot be empty").show();
+                return;
+            }
+            roomService.update(new RoomDTO(roomId, getRoomType(roomType), keyMoney, qty));
+            clearFields();
+            new Alert(Alert.AlertType.CONFIRMATION, "Room updated successfully").show();
+            loadRoomsToTable();
+
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "check the fields again").show();
+        } catch (NotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, roomId + " not found").show();
+        } catch (UpdateFailedException e) {
+            new Alert(Alert.AlertType.ERROR, roomId + " update failed").show();
+        }
     }
 
     private RoomTM toRoomTm(RoomDTO room, Button button) {
@@ -79,4 +153,43 @@ public class RoomsFormController {
         );
     }
 
+    private void loadRoomTypes() {
+        ArrayList<String> roomTypeList = new ArrayList<>();
+        roomTypeList.add("AC");
+        roomTypeList.add("AC_FOOD");
+        roomTypeList.add("NON_AC_FOOD");
+        roomTypeList.add("NON_AC");
+        ObservableList<String> roomTypes = FXCollections.observableList(roomTypeList);
+        cmbRoomType.setItems(roomTypes);
+    }
+
+    private int getRoomTypeIndex(ROOM_TYPE roomType) {
+        switch (roomType) {
+            case AC:
+                return 0;
+            case AC_FOOD:
+                return 1;
+            case NON_AC_FOOD:
+                return 2;
+            case NON_AC:
+                return 3;
+            default:
+                return -1;
+        }
+    }
+
+    private ROOM_TYPE getRoomType(String roomType) {
+        switch (roomType) {
+            case "AC":
+                return ROOM_TYPE.AC;
+            case "AC_FOOD":
+                return ROOM_TYPE.AC_FOOD;
+            case "NON_AC_FOOD":
+                return ROOM_TYPE.NON_AC_FOOD;
+            case "NON_AC":
+                return ROOM_TYPE.NON_AC;
+            default:
+                return null;
+        }
+    }
 }

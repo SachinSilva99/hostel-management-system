@@ -10,6 +10,7 @@ import com.sachin.hostelmanagementsystem.service.ServiceType;
 import com.sachin.hostelmanagementsystem.service.custom.ReservationService;
 import com.sachin.hostelmanagementsystem.service.custom.RoomService;
 import com.sachin.hostelmanagementsystem.service.exception.NotFoundException;
+import com.sachin.hostelmanagementsystem.service.exception.ReservationFailedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -153,6 +154,7 @@ public class ReservationsFormController {
     }
 
     public void btnProceedOnAction(ActionEvent actionEvent) {
+        try {
         String studentName = txtName.getText();
         String address = txtAddress.getText();
         String contact = txtContact.getText();
@@ -171,14 +173,15 @@ public class ReservationsFormController {
         ReservationDTO reservationDTO = new ReservationDTO(
                 reservationService.generateResId(lblResId.getText()), new Date(), status, roomId,studentDTO
         );
-        try {
+
             reservationService.proceedReservation(reservationDTO);
             clearAllFields();
             loadLastRes_id(lblResId.getText());
             new Alert(Alert.AlertType.CONFIRMATION, "Reservation Successful").show();
-        }catch (Exception e){
-            System.out.println( e.getMessage());
+        } catch (ReservationFailedException e) {
             new Alert(Alert.AlertType.ERROR, "Reservation Failed").show();
+        }catch (Exception e){
+            new Alert(Alert.AlertType.ERROR, "Check the details again").show();
         }
     }
 
