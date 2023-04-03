@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="604.0" prefWidth="887.0" style="-fx-background-color: #000714;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sachin.hostelmanagementsystem.controller.RoomsFormController">
    <children>
       <Label layoutX="43.0" layoutY="31.0" text="Rooms" textFill="WHITE">
@@ -26,12 +25,12 @@
             <TableColumn prefWidth="92.0" text="delete" />
         </columns>
       </TableView>
-      <TextField fx:id="txtRoomId" layoutX="43.0" layoutY="397.0" promptText="Room Type Id" stylesheets="@../assets/css/main.css">
+      <TextField fx:id="txtRoomId" layoutX="43.0" layoutY="397.0" onKeyReleased="#txtRoomIdOnKeyReleased" promptText="Room Type Id" stylesheets="@../assets/css/main.css">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtKeyMoney" layoutX="43.0" layoutY="450.0" promptText="Room Key Money" stylesheets="@../assets/css/main.css">
+      <TextField fx:id="txtKeyMoney" layoutX="43.0" layoutY="450.0" onKeyReleased="#txtKeyMoneyOnKeyReleased" promptText="Room Key Money" stylesheets="@../assets/css/main.css">
          <font>
             <Font size="14.0" />
          </font>
@@ -41,7 +40,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <TextField fx:id="txtQty" layoutX="262.0" layoutY="450.0" promptText="QTY" stylesheets="@../assets/css/main.css">
+      <TextField fx:id="txtQty" layoutX="262.0" layoutY="450.0" onKeyReleased="#txtQtyOnKeyReleased" promptText="QTY" stylesheets="@../assets/css/main.css">
          <font>
             <Font size="14.0" />
          </font>

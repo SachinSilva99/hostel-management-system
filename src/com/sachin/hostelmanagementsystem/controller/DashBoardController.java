@@ -3,6 +3,7 @@ package com.sachin.hostelmanagementsystem.controller;
 import com.sachin.hostelmanagementsystem.dto.ReservationDTO;
 import com.sachin.hostelmanagementsystem.dto.StudentDTO;
 import com.sachin.hostelmanagementsystem.entity.constants.STATUS;
+import com.sachin.hostelmanagementsystem.regex.Validation;
 import com.sachin.hostelmanagementsystem.service.ServiceFactory;
 import com.sachin.hostelmanagementsystem.service.ServiceType;
 import com.sachin.hostelmanagementsystem.service.SuperService;
@@ -26,6 +27,7 @@ public class DashBoardController {
     private final RoomService roomService = ServiceFactory.getInstance().getService(ServiceType.ROOM);
     private final StudentService studentService = ServiceFactory.getInstance().getService(ServiceType.STUDENT);
     private final ReservationService reservationService = ServiceFactory.getInstance().getService(ServiceType.RESERVATION);
+
     @FXML
     public Label lblStudent_idP;
     @FXML
@@ -204,7 +206,8 @@ public class DashBoardController {
 
     }
 
-    private void clearFields() {
+
+        private void clearFields() {
         lblStudent_idP.setText("");
         lblRoomTypeP.setText("");
         lblKeyMoneyP.setText("");

@@ -3,6 +3,8 @@ package com.sachin.hostelmanagementsystem.controller;
 import com.sachin.hostelmanagementsystem.dto.RoomDTO;
 import com.sachin.hostelmanagementsystem.dto.tms.RoomTM;
 import com.sachin.hostelmanagementsystem.entity.constants.ROOM_TYPE;
+import com.sachin.hostelmanagementsystem.regex.Validates;
+import com.sachin.hostelmanagementsystem.regex.Validation;
 import com.sachin.hostelmanagementsystem.service.ServiceFactory;
 import com.sachin.hostelmanagementsystem.service.ServiceType;
 import com.sachin.hostelmanagementsystem.service.custom.RoomService;
@@ -14,6 +16,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
@@ -22,6 +25,8 @@ import java.util.stream.Collectors;
 
 public class RoomsFormController {
     private final RoomService roomService = ServiceFactory.getInstance().getService(ServiceType.ROOM);
+    private  final Validation validation = new Validation();
+
 
     @FXML
     private TextField txtRoomId;
@@ -191,5 +196,42 @@ public class RoomsFormController {
             default:
                 return null;
         }
+    }
+
+    @FXML
+    void txtKeyMoneyOnKeyReleased(KeyEvent event) {
+        txtKeyMoney.setStyle("-fx-border-color: none;");
+        boolean match = validation.match(txtKeyMoney.getText(), Validates.PRICE);
+        if(match){
+            txtKeyMoney.setStyle("-fx-border-color: none;");
+            return;
+        }
+        txtKeyMoney.setStyle("-fx-border-color: #fc6161;");
+    }
+
+    @FXML
+    void txtQtyOnKeyReleased(KeyEvent event) {
+
+        txtQty.setStyle("-fx-border-color: none;");
+        boolean match = validation.match(txtQty.getText(), Validates.QTY);
+        if(match){
+            txtQty.setStyle("-fx-border-color: none;");
+            return;
+        }
+        txtQty.setStyle("-fx-border-color: #fc6161;");
+    }
+
+    @FXML
+    void txtRoomIdOnKeyReleased(KeyEvent event) {
+        System.out.println("inside");
+
+        txtRoomId.setStyle("-fx-border-color: none;");
+        boolean match = validation.match(txtRoomId.getText(), Validates.ROOM_TYPE_ID);
+        if(match){
+            txtRoomId.setStyle("-fx-border-color: none;");
+            System.out.println("matching");
+            return;
+        }
+        txtRoomId.setStyle("-fx-border-color: #fc6161;");
     }
 }

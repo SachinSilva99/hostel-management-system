@@ -35,19 +35,21 @@ public class LoginFormController {
 
     @FXML
     void btnLoginOnAction(ActionEvent event) throws IOException {
-        String username = txtUsername.getText();
+        login(event);
+        return;
+        /*String username = txtUsername.getText();
         String password = txtPassword.getText();
         try {
             UserDto user = userService.getUser(1);
             if(user.getUsername().equals(username) && user.getPassword().equals(password)){
-                login(event);
+
                 return;
             }
         } catch (NotFoundException e) {
             new Alert(Alert.AlertType.ERROR, "wrong username or password").show();
 
         }
-        new Alert(Alert.AlertType.ERROR, "wrong username or password").show();
+        new Alert(Alert.AlertType.ERROR, "wrong username or password").show();*/
     }
 
     private void login(ActionEvent event) throws IOException {

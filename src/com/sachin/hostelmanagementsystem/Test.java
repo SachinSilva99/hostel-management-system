@@ -49,11 +49,19 @@ Test {
         id += 1;
        String result = "RS00" + id;
         System.out.println(result);*/
-        ArrayList<String> list = new ArrayList<>();
+        /*ArrayList<String> list = new ArrayList<>();
         list.add("Sachin");
         list.add("Saman");
         list.add("Sanath");
         List<String> s1 = list.stream().filter(s -> s.contains("") || s.contains("")).collect(Collectors.toList());
-        System.out.println(s1);
+        System.out.println(s1);*/
+        String campusId = "ABC-12123";
+        String pattern = "^[A-Za-z]+-\\w+$";
+        if (campusId.matches(pattern)) {
+            System.out.println("Campus Id is valid");
+        } else {
+            System.out.println("Campus Id is invalid");
+        }
+
     }
 }
