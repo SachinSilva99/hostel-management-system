@@ -37,10 +37,8 @@ public class ReservationServiceImpl implements ReservationService {
         Reservation reservation = mapper.toReservation(reservationDTO);
 
         Transaction transaction = session.beginTransaction();
-        List<Reservation> reservations = new ArrayList<>();
         try {
-
-            student.setReservations(reservations);
+            student.getReservations().add(reservation);
             reservation.setStudent(student);
             Optional<Room> roomByPk = roomRepo.findByPk(reservationDTO.getRoomTypeId(), session);
             if (!roomByPk.isPresent()) {
@@ -48,12 +46,22 @@ public class ReservationServiceImpl implements ReservationService {
             }
             Room room = roomByPk.get();
             reservation.setRoom(room);
-            //Save
             room.setQty(room.getQty() - 1);
-            studentRepo.save(student, session);
-            reservationRepo.save(reservation, session);
-            roomRepo.update(room, session);
-            transaction.commit();
+            //if the student is already in the database, update student
+            if (studentRepo.findByPk(student.getStudent_id(), session).isPresent()) {
+                Student updatedStudent = studentRepo.findByPk(student.getStudent_id(), session).get();
+                updatedStudent.setName(student.getName());
+                updatedStudent.setAddress(student.getAddress());
+                updatedStudent.setContact_no(student.getContact_no());
+                updatedStudent.setDob(student.getDob());
+                studentRepo.update(updatedStudent, session);
+            } else {
+                //Proceed the reservation
+                studentRepo.save(student, session);
+                reservationRepo.save(reservation, session);
+                roomRepo.update(room, session);
+                transaction.commit();
+            }
         } catch (Exception e) {
             transaction.rollback();
             e.getStackTrace();
@@ -62,7 +70,6 @@ public class ReservationServiceImpl implements ReservationService {
         } finally {
             session.close();
         }
-
     }
 
     @Override
@@ -92,11 +99,13 @@ public class ReservationServiceImpl implements ReservationService {
         try {
             Optional<Reservation> byPk = reservationRepo.findByPk(selectedItem, session);
             if (!byPk.isPresent()) throw new NotFoundException(selectedItem + " not found to update");
+
             Reservation reservation = byPk.get();
             reservation.setStatus(status);
             reservationRepo.update(reservation, session);
             String roomTypeId = reservation.getRoom().getRoom_type_id();
             Optional<Room> byPk1 = roomRepo.findByPk(roomTypeId, session);
+
             if (!byPk.isPresent()) throw new NotFoundException(roomTypeId + " not found to update");
             Room room = byPk1.get();
             room.setQty(room.getQty() + 1);
@@ -134,7 +143,7 @@ public class ReservationServiceImpl implements ReservationService {
             return "RS00" + id;
         }
         String lastResId = reservationRepo.getLastResId(session);
-        if(lastResId == null)return "RS001";
+        if (lastResId == null) return "RS001";
         return lastResId;
     }
 }

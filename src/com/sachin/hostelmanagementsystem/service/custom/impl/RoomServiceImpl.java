@@ -65,9 +65,8 @@ public class RoomServiceImpl implements RoomService {
         }
         session.clear();
         try {
-
-            Room room = mapper.toRoom(roomDTO);
-            roomRepo.update(room, session);
+            Room updatedRoom = mapper.toRoom(roomDTO);
+            roomRepo.update(updatedRoom, session);
             transaction.commit();
             return roomDTO;
         } catch (Exception e) {

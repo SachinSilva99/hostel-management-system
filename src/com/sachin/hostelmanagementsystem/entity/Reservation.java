@@ -30,4 +30,5 @@ public class Reservation implements SuperEntity{
         this.date = date;
         this.status = status;
     }
+
 }

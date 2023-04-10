@@ -265,6 +265,7 @@ public class ReservationsFormController {
     public void txtContactOnKeyReleased(KeyEvent keyEvent) {
         setValidates(txtContact, Validates.PHONE_NUMBER);
     }
+
     private boolean allValidated() {
         boolean isAddressValid = validation.match(txtAddress.getText(), Validates.ADDRESS);
         boolean isContactNoValid = validation.match(txtContact.getText(), Validates.PHONE_NUMBER);
@@ -272,6 +273,7 @@ public class ReservationsFormController {
         boolean isAgeValid = isAgeValid();
         return isAddressValid && isContactNoValid && isNameValid && isAgeValid;
     }
+
     private boolean isAgeValid() {
         LocalDate selectedDate = dtDob.getValue();
         if (dtDob.getValue() == null) return false;

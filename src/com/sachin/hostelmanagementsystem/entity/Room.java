@@ -17,11 +17,14 @@ import java.util.List;
 public class Room implements SuperEntity{
     @Id
     private String room_type_id;
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private ROOM_TYPE roomType;
+
     @Column(nullable = false)
     private double key_money;
+
     @Column(nullable = false)
     private long qty;
 

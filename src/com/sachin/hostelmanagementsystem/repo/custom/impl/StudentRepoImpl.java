@@ -30,6 +30,7 @@ public class StudentRepoImpl implements StudentRepo {
             session.update(student);
             return student;
         } catch (Exception e) {
+            e.printStackTrace();
             throw new ConstraintViolationException("Student did not update");
         }
     }
@@ -59,8 +60,8 @@ public class StudentRepoImpl implements StudentRepo {
 
     @Override
     public boolean existByPk(String pk, Session session) {
-        Student student = session.get(Student.class, pk);
-        return student != null;
+        String studentId = session.get(Student.class, pk).getStudent_id();
+        return studentId != null;
     }
 
     @Override
