@@ -97,17 +97,18 @@ public class ReservationServiceImpl implements ReservationService {
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
         try {
-            Optional<Reservation> byPk = reservationRepo.findByPk(selectedItem, session);
-            if (!byPk.isPresent()) throw new NotFoundException(selectedItem + " not found to update");
+            Optional<Reservation> reservationByPk = reservationRepo.findByPk(selectedItem, session);
+            if (!reservationByPk.isPresent()) throw new NotFoundException(selectedItem + " not found to update");
 
-            Reservation reservation = byPk.get();
+            Reservation reservation = reservationByPk.get();
             reservation.setStatus(status);
             reservationRepo.update(reservation, session);
             String roomTypeId = reservation.getRoom().getRoom_type_id();
-            Optional<Room> byPk1 = roomRepo.findByPk(roomTypeId, session);
+            Optional<Room> roomById = roomRepo.findByPk(roomTypeId, session);
 
-            if (!byPk.isPresent()) throw new NotFoundException(roomTypeId + " not found to update");
-            Room room = byPk1.get();
+            if (!roomById.isPresent()) throw new NotFoundException(roomTypeId + " not found to update");
+
+            Room room = roomById.get();
             room.setQty(room.getQty() + 1);
             roomRepo.update(room, session);
             Reservation updateReservation = reservationRepo.update(reservation, session);
