@@ -90,18 +90,19 @@ public class LoginFormController {
             txtPassword.setText(psPassword.getText());
             txtPassword.setVisible(true);
             psPassword.setVisible(false);
-            eyeStatus = !eyeStatus;
-            Image image = new Image("com/sachin/hostelmanagementsystem/assets/icons/eyeOpened.png");
-            imgEye.setImage(image);
             txtPassword.requestFocus();
+            setIcon("com/sachin/hostelmanagementsystem/assets/icons/eyeOpened.png");
             return;
         }
         psPassword.setText(txtPassword.getText());
         txtPassword.setVisible(false);
         psPassword.setVisible(true);
-        eyeStatus = !eyeStatus;
-        Image image = new Image("com/sachin/hostelmanagementsystem/assets/icons/eyeClosed.png");
-        imgEye.setImage(image);
         psPassword.requestFocus();
+        setIcon("com/sachin/hostelmanagementsystem/assets/icons/eyeClosed.png");
+    }
+    private void setIcon (String url){
+        Image image = new Image(url);
+        imgEye.setImage(image);
+        eyeStatus = !eyeStatus;
     }
 }
