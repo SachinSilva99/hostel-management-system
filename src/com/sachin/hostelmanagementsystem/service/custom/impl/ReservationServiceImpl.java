@@ -19,7 +19,6 @@ import com.sachin.hostelmanagementsystem.util.Mapper;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,6 +45,7 @@ public class ReservationServiceImpl implements ReservationService {
             }
             Room room = roomByPk.get();
             reservation.setRoom(room);
+            room.getReservations().add(reservation);
             room.setQty(room.getQty() - 1);
             //if the student is already in the database, update student
             if (studentRepo.findByPk(student.getStudent_id(), session).isPresent()) {

@@ -63,7 +63,10 @@ public class AppInitializer extends Application {
             roomRepo.save(room4, session);
             transaction.commit();
         } catch (Exception e) {
+            transaction.rollback();
             throw new Exception("Failed to initialize db");
+        }finally {
+            session.close();
         }
     }
 }

@@ -31,4 +31,14 @@ public class Reservation implements SuperEntity{
         this.status = status;
     }
 
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "res_id='" + res_id + '\'' +
+                ", date=" + date +
+                ", status=" + status +
+                ", student=" + student +
+                ", room=" + room +
+                '}';
+    }
 }
