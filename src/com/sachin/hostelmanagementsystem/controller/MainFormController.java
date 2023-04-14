@@ -15,16 +15,24 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class MainFormController {
     @FXML
     public AnchorPane subAnchorPane;
-    public Label btnLoading;
+    @FXML
+    public Label lblDate;
 
-    public void initialize() throws IOException {
-
+    public void initialize(){
+        initializeDate();
     }
-
+    private void initializeDate(){
+        LocalDate today = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String date = formatter.format(today);
+        lblDate.setText(date);
+    }
 
     @FXML
     public void btnRoomsOnAction(ActionEvent actionEvent) {

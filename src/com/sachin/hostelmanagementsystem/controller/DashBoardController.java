@@ -20,6 +20,9 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -83,6 +86,7 @@ public class DashBoardController {
     private Button btnComplete;
 
     public void initialize() {
+
         loadRemainingRooms();
         loadNoOfStudentsNotPaidKeyMoney();
         loadNotPaidStudentIds();

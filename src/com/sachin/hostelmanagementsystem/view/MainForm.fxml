@@ -32,7 +32,7 @@
                </font>
             </Label>
          </children></AnchorPane>
-      <Label layoutX="1141.0" layoutY="35.0" text="2023/01/01" textFill="WHITE">
+      <Label fx:id="lblDate" layoutX="1141.0" layoutY="35.0" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
