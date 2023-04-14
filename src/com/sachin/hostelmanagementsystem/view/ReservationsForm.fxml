@@ -106,7 +106,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="lblResId" layoutX="765.0" layoutY="26.0" prefHeight="25.0" prefWidth="55.0" textFill="WHITE">
+      <Label fx:id="lblResId" layoutX="765.0" layoutY="26.0" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>

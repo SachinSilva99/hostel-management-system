@@ -141,10 +141,10 @@ public class ReservationServiceImpl implements ReservationService {
             String[] split = currentResId.split("RS00");
             int id = Integer.parseInt(split[1]);
             id += 1;
-            return "RS00" + id;
+            return String.format("RS0" + "%05d", id);
         }
         String lastResId = reservationRepo.getLastResId(session);
-        if (lastResId == null) return "RS001";
+        if (lastResId == null) return "RS000001";
         return lastResId;
     }
 }
